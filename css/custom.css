@@ -105,7 +105,7 @@
 
 /* Card Improvements */
 .card {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.02) !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     transition: all 0.3s ease;
@@ -131,7 +131,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02) !important;
     color: var(--bs-white);
     transition: all 0.3s ease;
 }
