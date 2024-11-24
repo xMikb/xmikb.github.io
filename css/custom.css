@@ -7,9 +7,10 @@
 
 /* Base colors */
 :root {
-    --bg-dark: #0a0a0f;
-    --bg-darker: #050507;
+    --bg-dark: #1a1a1f;
+    --bg-darker: #15151a;
     --bg-light: rgba(255, 255, 255, 0.05);
+    --bg-card: rgba(255, 255, 255, 0.08);
 }
 
 /* Hero Section Improvements */
@@ -98,6 +99,7 @@ body {
     color: var(--bs-white);
     position: relative;
     padding-bottom: 1rem;
+    display: inline-block;
 }
 
 .section-title::after {
@@ -114,7 +116,7 @@ body {
 
 /* Card Improvements */
 .card {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--bg-card);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     transition: all 0.3s ease;
@@ -154,7 +156,7 @@ body {
 #floating-logo {
     position: fixed;
     z-index: 1000;
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
 }
 
@@ -162,7 +164,7 @@ body {
     width: 80px;
     height: auto;
     opacity: 0.9;
-    transition: all 0.3s ease;
+    transition: all 1.2s ease;
 }
 
 /* Section position markers for the logo */
