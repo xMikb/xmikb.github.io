@@ -5,7 +5,7 @@ window.addEventListener('load', () => {
     loader.classList.add('fade-out');
     setTimeout(() => {
         loader.style.display = 'none';
-    }, 500);
+    }, 1000);
 });
 // Smooth Scroll for Navigation Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -44,15 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const yearElement = document.querySelector('.copyright-year');
     if (yearElement) {
         yearElement.textContent = new Date().getFullYear();
-    }
-});
-// Navbar Background Change on Scroll
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('#mainNav');
-    if (window.scrollY > 50) {
-        navbar.classList.add('navbar-shrink');
-    } else {
-        navbar.classList.remove('navbar-shrink');
     }
 });
 // Add hover effect to cards
