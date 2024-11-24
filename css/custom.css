@@ -73,12 +73,12 @@
 /* Section Improvements */
 .section {
     padding: 6rem 0;
-    background-color: var(--bs-antra);
+    background-color: var(--bs-antra) !important;
     position: relative;
 }
 
 .section:nth-child(odd) {
-    background-color: rgba(255, 255, 255, 0.02);
+    background-color: rgba(255, 255, 255, 0.02) !important;
 }
 
 .section-title {
