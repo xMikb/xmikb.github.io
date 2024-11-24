@@ -23,7 +23,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02));
+    background: linear-gradient(to bottom, rgba(18, 18, 24, 1), rgba(255, 255, 255, 0.02));
 }
 
 .hero-content {
@@ -70,11 +70,33 @@
     }
 }
 
+/* Container fix to prevent side blocks */
+.container {
+    width: 100%;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Make carousel background transparent */
+.carousel-container,
+.logo-carousel,
+.carousel-track {
+    background: transparent !important;
+}
+
+.language-logo {
+    opacity: 1;
+    z-index: 2;
+}
+
 /* Section Improvements */
 .section {
-    padding: 6rem 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 4rem 0;
     background-color: rgba(255, 255, 255, 0.02) !important;
-    position: relative;
+    margin: 0;
 }
 
 .section:nth-child(odd) {
@@ -101,6 +123,13 @@
     height: 4px;
     background: linear-gradient(90deg, var(--bs-primary), var(--bs-secondary));
     border-radius: 2px;
+}
+
+/* Content width control */
+.section > div {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
 /* Card Improvements */
