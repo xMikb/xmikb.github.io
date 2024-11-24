@@ -410,7 +410,7 @@ body {
 .footer {
     padding: 2rem 0;
     text-align: center;
-    background-color: var(--bg-antra) !important;
+    background-color: var(--bg-section) !important;
     position: relative;
 }
 
@@ -709,7 +709,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(18,18,24,0.4), rgba(18,18,24,1),var(--bg-antra) 105%);
+    background: linear-gradient(to bottom, rgba(18,18,24,0.4), rgba(18,18,24,1),var(--bg-section) 105%);
     z-index: 3;
 }
 
@@ -1221,85 +1221,6 @@ html {
 </body>
     
 <script>
-const images = [
-    'Image4.png',
-    'Image3.png',
-    'Image2.png',
-    'Image5.png'
-];
-
-function createFloatingImage() {
-    const img = document.createElement('img');
-    img.src = `assets/img/${images[Math.floor(Math.random() * images.length)]}`;
-    img.classList.add('floating-image');
-    
-    // Random size between 80px and 150px (slightly smaller)
-    const size = Math.random() * 70 + 80;
-    img.style.width = `${size}px`;
-    img.style.height = `${size}px`;
-    
-    // Random initial position
-    const x = Math.random() * (window.innerWidth - size);
-    const y = Math.random() * (window.innerHeight - size);
-    
-    img.style.left = `${x}px`;
-    img.style.top = `${y}px`;
-    
-    // Random rotation
-    img.style.transform = `rotate(${Math.random() * 360}deg)`;
-    
-    return img;
-}
-
-function initFloatingImages() {
-    const container = document.getElementById('floatingImages');
-    container.innerHTML = ''; // Clear existing images
-    
-    // Create 4 images (one for each of your pictures)
-    for (let i = 0; i < 4; i++) {
-        const img = createFloatingImage();
-        container.appendChild(img);
-    }
-}
-
-// Initialize on page load
-window.addEventListener('load', initFloatingImages);
-
-// Update positions on scroll
-window.addEventListener('scroll', () => {
-    const scrollOffset = window.scrollY;
-    const images = document.querySelectorAll('.floating-image');
-    
-    images.forEach((img, index) => {
-        const speed = 0.5 + (index * 0.1); // Different speeds for each image
-        const currentTop = parseFloat(img.style.top);
-        const newTop = currentTop + (scrollOffset * speed * 0.1);
-        
-        // Reset position if image goes too far down
-        if (newTop > window.innerHeight + 200) {
-            img.style.top = '-100px';
-        } else {
-            img.style.top = `${newTop}px`;
-        }
-    });
-});
-
-// Handle window resize
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(initFloatingImages, 250);
-});
-
-// Reinitialize on window resize
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-        const container = document.getElementById('floatingImages');
-        container.innerHTML = '';
-        initFloatingImages();
-    }, 250);
-});
-
 document.addEventListener('DOMContentLoaded', () => {
     const track = document.querySelector('.carousel-track');
     const slides = track.getElementsByClassName('carousel-slide');
