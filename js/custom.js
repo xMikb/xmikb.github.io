@@ -89,66 +89,53 @@ document.querySelectorAll('.card').forEach(card => {
 });
 
 // Floating Logo Animation
-const floatingLogo = document.querySelector('#floating-logo');
-const sections = document.querySelectorAll('.section');
-let currentSection = 0;
-let positions = [];
+document.addEventListener('DOMContentLoaded', function() {
+    const floatingLogo = document.getElementById('floating-logo');
+    const sections = ['performance', 'languages', 'team', 'contact'];
+    let currentSection = '';
 
-// Initialize position markers for each section
-function initPositionMarkers() {
-    positions = [];
-    sections.forEach((section, index) => {
-        const rect = section.getBoundingClientRect();
-        positions[index] = {
-            top: rect.top + window.scrollY + (rect.height / 2),
-            left: index % 2 === 0
-        };
-    });
-}
-
-// Update logo position based on scroll
-function updateLogoPosition() {
-    const scrollPosition = window.scrollY + window.innerHeight / 2;
-    
-    // Find the current section
-    let activeSection = 0;
-    positions.forEach((pos, index) => {
-        if (scrollPosition >= pos.top - window.innerHeight / 2) {
-            activeSection = index;
-        }
-    });
-    
-    if (activeSection !== currentSection || !currentSection) {
-        currentSection = activeSection;
+    function updateLogoPosition() {
+        const scrollPosition = window.scrollY + window.innerHeight / 2;
         
-        // Update logo position
-        const position = positions[currentSection];
-        if (position) {
-            const targetTop = position.top - window.scrollY;
-            floatingLogo.style.top = `${targetTop}px`;
-            floatingLogo.style.transform = `translate(${position.left ? '-50%' : '50%'}, -50%)`;
-            floatingLogo.style.left = position.left ? '10%' : '90%';
+        for (let i = 0; i < sections.length; i++) {
+            const section = document.getElementById(sections[i]);
+            if (!section) continue;
+            
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
+                if (currentSection !== sections[i]) {
+                    currentSection = sections[i];
+                    const title = section.querySelector('.section-title');
+                    if (!title) continue;
+                    
+                    const titleRect = title.getBoundingClientRect();
+                    const sectionRect = section.getBoundingClientRect();
+                    
+                    // Position relative to the title
+                    const isEven = i % 2 === 0;
+                    const xOffset = isEven ? -100 : title.offsetWidth + 20;
+                    
+                    floatingLogo.style.transform = `translateX(${isEven ? '-10px' : '10px'})`;
+                    floatingLogo.style.left = `${title.offsetLeft + xOffset}px`;
+                    floatingLogo.style.top = `${titleRect.top + window.scrollY + titleRect.height/2 - 40}px`;
+                }
+                break;
+            }
         }
     }
-}
 
-// Initialize on page load
-window.addEventListener('load', () => {
-    initPositionMarkers();
-    updateLogoPosition();
-});
+    // Initial position
+    setTimeout(updateLogoPosition, 100);
 
-// Update on scroll
-window.addEventListener('scroll', () => {
-    requestAnimationFrame(updateLogoPosition);
-});
-
-// Update positions on window resize
-let resizeTimeout;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-        initPositionMarkers();
-        updateLogoPosition();
-    }, 100);
+    // Update on scroll
+    window.addEventListener('scroll', updateLogoPosition);
+    
+    // Update on resize
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(updateLogoPosition, 100);
+    });
 });
