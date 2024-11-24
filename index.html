@@ -45,8 +45,7 @@
 <style>
 /* Base & Layout */
 :root {
-    --bg-antra: #0a0a0f;
-    --bg-bg: rgba(255, 255, 255, 0.02);
+    --bg-antra: rgba(255, 255, 255, 0.02);
     --bg-card: rgba(255, 255, 255, 0.05);
     --text-white: #ffffff;
     --text-gray: rgba(156, 163, 175, 0.9);
@@ -61,7 +60,7 @@
     box-sizing: border-box;
 }
 body {
-    background-color: var(--bg-bg);
+    background-color: var(--bg-antra);
     color: var(--text-white);
     line-height: 1.6;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
@@ -113,7 +112,7 @@ body {
 /* Sections */
 .section {
     padding: 4rem 0;
-    background-color: var(--bg-bg);
+    background-color: var(--bg-antra);
     overflow: hidden; /* Prevent horizontal scroll */
 }
 .section:has(.logo-carousel) {
@@ -587,7 +586,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(18,18,24,0.4), rgba(18,18,24,1),var(--bg-bg) 105%);
+    background: linear-gradient(to bottom, rgba(18,18,24,0.4), rgba(18,18,24,1),var(--bg-antra) 105%);
     z-index: 3;
 }
 /* Floating images - now between background and gradient */
@@ -702,17 +701,17 @@ section {
     width: 100%;
     padding: 4rem 0;
     overflow: hidden;
-    background-color: var(--bg-bg);
+    background-color: var(--bg-antra);
 }
 .carousel-container {
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: var(--bg-bg);
+    background-color: var(--bg-antra);
 }
 .carousel-container,
 .logo-carousel {
-    background-color: var(--bg-bg);
+    background-color: var(--bg-antra);
 }
     
 .carousel-track:hover {
@@ -792,11 +791,11 @@ section {
 }
 .logo-carousel::before {
     left: 0;
-    background: linear-gradient(to right, var(--bg-bg) 0%, transparent 100%);
+    background: linear-gradient(to right, var(--bg-antra) 0%, transparent 100%);
 }
 .logo-carousel::after {
     right: 0;
-    background: linear-gradient(to left, var(--bg-bg) 0%, transparent 100%);
+    background: linear-gradient(to left, var(--bg-antra) 0%, transparent 100%);
 }
 /* Responsive adjustments */
 @media (max-width: 768px) {
