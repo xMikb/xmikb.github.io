@@ -107,19 +107,15 @@ document.addEventListener('DOMContentLoaded', function() {
             if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
                 if (currentSection !== sections[i]) {
                     currentSection = sections[i];
-                    const title = section.querySelector('.section-title');
-                    if (!title) continue;
                     
-                    const titleRect = title.getBoundingClientRect();
-                    const sectionRect = section.getBoundingClientRect();
-                    
-                    // Position relative to the title
+                    // Simple left/right alternating position
                     const isEven = i % 2 === 0;
-                    const xOffset = isEven ? -100 : title.offsetWidth + 20;
+                    floatingLogo.style.left = isEven ? '10%' : '90%';
+                    floatingLogo.style.transform = `translateX(${isEven ? '-50%' : '-50%'})`;
                     
-                    floatingLogo.style.transform = `translateX(${isEven ? '-10px' : '10px'})`;
-                    floatingLogo.style.left = `${title.offsetLeft + xOffset}px`;
-                    floatingLogo.style.top = `${titleRect.top + window.scrollY + titleRect.height/2 - 40}px`;
+                    // Vertical position in middle of viewport
+                    const viewportMiddle = window.innerHeight / 2;
+                    floatingLogo.style.top = `${viewportMiddle}px`;
                 }
                 break;
             }
