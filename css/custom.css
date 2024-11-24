@@ -73,7 +73,7 @@
 /* Section Improvements */
 .section {
     padding: 6rem 0;
-    background-color: var(--bs-antra) !important;
+    background-color: var(--bs-antra);
     position: relative;
 }
 
