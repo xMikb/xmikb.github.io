@@ -135,8 +135,8 @@ body {
     background: linear-gradient(
         to right,
         rgb(147, 51, 234) 0%,
-        rgb(192, 132, 252) 100%,
-        /*rgb(147, 51, 234) 100% */
+        rgb(192, 132, 252) 50%,
+        rgb(147, 51, 234) 100%
     );
     background-size: 200% auto;
     -webkit-background-clip: text;
@@ -302,7 +302,7 @@ body {
 .footer {
     padding: 2rem 0;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.02) !important;
+    background-color: #0a0a0f;
     position: relative;
 }
 .footer .container {
@@ -348,12 +348,12 @@ body {
 .social a {
     width: 3.5rem;
     height: 3.5rem;
-    background: rgba(255, 255, 255, 0.02) !important;
+    background: #0a0a0f;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(255, 255, 255, 0.5) !important;
+    color: rgba(255, 255, 255, 0.5);
     font-size: 1.5rem;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -561,7 +561,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(18,18,24,0.4), rgba(18,18,24,1),rgba(255, 255, 255, 0.02) 105%);
+    background: linear-gradient(to bottom, rgba(18,18,24,0.4), rgba(18,18,24,1),var(--bg-antra) 105%);
     z-index: 3;
 }
 /* Floating images - now between background and gradient */
@@ -768,11 +768,11 @@ section {
 }
 .logo-carousel::before {
     left: 0;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+    background: linear-gradient(to right, var(--bg-antra) 0%, transparent 100%);
 }
 .logo-carousel::after {
     right: 0;
-    background: linear-gradient(to left, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+    background: linear-gradient(to left, var(--bg-antra) 0%, transparent 100%);
 }
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -822,7 +822,12 @@ section {
 html {
     scroll-behavior: smooth;
 }
-</style>    
+</style>
+    <!-- Loading Animation -->
+    <div class="loading">
+        <img src="assets/img/Beyondlogo.png" alt="Loading..." style="width: 150px;">
+    </div>
+    
 <div class="section-separator"></div>
 <section class="section">
     <div class="container">
