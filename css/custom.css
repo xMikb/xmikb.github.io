@@ -7,8 +7,8 @@
 
 /* Base colors */
 :root {
-    --bg-dark: #1a1a1f;
-    --bg-darker: #15151a;
+    --bg-dark: #2a2a30;
+    --bg-darker: #252529;
     --bg-light: rgba(255, 255, 255, 0.05);
     --bg-card: rgba(255, 255, 255, 0.08);
 }
@@ -39,6 +39,7 @@
 
 .btn-primary {
     background-color: var(--bs-primary);
+    /* background-color: rgba(255, 255, 255, 0.0667); */
     border: none;
     padding: 1rem 2rem;
     font-size: 1.1rem;
