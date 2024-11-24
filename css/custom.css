@@ -11,6 +11,16 @@
     --bg-darker: rgba(255, 255, 255, 0.08);
     --bg-light: rgba(255, 255, 255, 0.05);
     --bg-card: rgba(255, 255, 255, 0.08);
+    --text-white: #ffffff;
+    --text-gray: rgba(156, 163, 175, 0.9);
+    --primary: rgb(147, 51, 234);
+    --bug: rgb(173, 4, 4);
+    --success: #10b981;
+    --warning: #eab308;
+    --bs-primary: var(--primary);
+    --bs-secondary: var(--success);
+    --bs-white: var(--text-white);
+    --bs-antra: #1a1d23;
 }
 
 body {
@@ -43,7 +53,6 @@ body {
 
 .btn-primary {
     background-color: var(--bs-primary);
-    /* background-color: rgba(255, 255, 255, 0.0667); */
     border: none;
     padding: 1rem 2rem;
     font-size: 1.1rem;
