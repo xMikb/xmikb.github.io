@@ -5,7 +5,7 @@ window.addEventListener('load', () => {
     loader.classList.add('fade-out');
     setTimeout(() => {
         loader.style.display = 'none';
-    }, 1000);
+    }, 500);
 });
 // Smooth Scroll for Navigation Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
