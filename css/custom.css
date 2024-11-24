@@ -7,8 +7,8 @@
 
 /* Base colors */
 :root {
-    --bg-dark: #2a2a30;
-    --bg-darker: #252529;
+    --bg-dark: rgba(255, 255, 255, 0.1);
+    --bg-darker: rgba(255, 255, 255, 0.08);
     --bg-light: rgba(255, 255, 255, 0.05);
     --bg-card: rgba(255, 255, 255, 0.08);
 }
