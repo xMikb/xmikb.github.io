@@ -676,38 +676,23 @@ section {
     width: 100%;
     padding: 4rem 0;
     overflow: hidden;
-    background-color: rgba(255, 255, 255, 0.02) !important;
+    background: transparent !important;
 }
 
 .carousel-container {
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.02) !important;
+    background: transparent !important;
 }
 
-.carousel-container,
-.logo-carousel {
-    background-color: rgba(255, 255, 255, 0.02) !important;
-}
-    
-.carousel-track:hover {
-    animation-play-state: running;
-}
 .carousel-track {
     display: flex;
     animation: scroll 20s linear infinite;
-    gap: 4rem; /* You have a 4rem gap */
+    gap: 4rem;
+    background: transparent !important;
 }
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        /* 250px (slide width) * 4 (unique slides) + (4rem gap * 3) */
-        transform: translateX(calc(-250px * 4 - 4rem * 4));
-    }
-}
+
 .carousel-slide {
     flex: 0 0 250px;
     height: 200px;
@@ -716,24 +701,27 @@ section {
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    background: none !important;
+    background: transparent !important;
     border: none !important;
     box-shadow: none !important;
 }
+
 .logo-container {
     background: none;
     box-shadow: none;
     border: none;
 }
+
 .language-logo {
-    width: 100px; /* Fixed size for all logos */
-    height: 100px; /* Fixed size for all logos */
+    width: 100px;
+    height: 100px;
     object-fit: contain;
     margin-bottom: 1.5rem;
-    filter: brightness(0) invert(1); /* Makes black logos white */
+    filter: brightness(1);
     transition: transform 0.3s ease;
-    background: transparent;
+    background: transparent !important;
 }
+
 /* Container to enforce aspect ratio */
 .logo-container {
     width: 80px;
@@ -743,9 +731,11 @@ section {
     justify-content: center;
     margin-bottom: 1.5rem;
 }
+
 .carousel-slide:hover .language-logo {
     transform: scale(1.1);
 }
+
 .logo-title {
     background: var(--gradient-text);
     -webkit-background-clip: text;
@@ -756,6 +746,7 @@ section {
     text-align: center;
     white-space: nowrap;
 }
+
 /* Gradient fade effect on sides */
 .logo-carousel::before,
 .logo-carousel::after {
@@ -766,14 +757,17 @@ section {
     height: 100%;
     z-index: 2;
 }
+
 .logo-carousel::before {
     left: 0;
     background: linear-gradient(to right, var(--bg-antra) 0%, transparent 100%);
 }
+
 .logo-carousel::after {
     right: 0;
     background: linear-gradient(to left, var(--bg-antra) 0%, transparent 100%);
 }
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .section-title {
@@ -809,19 +803,23 @@ section {
         font-size: 1.125rem;
     }
 }
+
 /* Update icon colors */
 .icon-shield { color: var(--primary); }
 .icon-activity { color: var(--success); }
 .icon-bug { color: var(--bug); } /* New color for bug icon */
 .icon-code { color: var(--warning); }
+
 /* Match card value colors with icons */
 .card:nth-child(1) .card-value { color: var(--primary); }
 .card:nth-child(2) .card-value { color: var(--success); }
 .card:nth-child(3) .card-value { color: var(--bug); }
 .card:nth-child(4) .card-value { color: var(--warning); }
+
 html {
     scroll-behavior: smooth;
 }
+
 </style>
     <!-- Loading Animation -->
     <div class="loading">
