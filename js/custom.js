@@ -53,28 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Navbar Hide/Show on Scroll
-let lastScrollTop = 0;
+// Navbar Background Change on Scroll
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('#mainNav');
-    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-    
-    if (currentScroll > lastScrollTop) {
-        // Scrolling down
-        navbar.style.transform = 'translateY(-100%)';
-    } else {
-        // Scrolling up
-        navbar.style.transform = 'translateY(0)';
-    }
-    
-    // Add background when scrolled
-    if (currentScroll > 50) {
+    if (window.scrollY > 50) {
         navbar.classList.add('navbar-shrink');
     } else {
         navbar.classList.remove('navbar-shrink');
     }
-    
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 });
 
 // Add hover effect to cards
@@ -85,53 +71,5 @@ document.querySelectorAll('.card').forEach(card => {
     
     card.addEventListener('mouseleave', () => {
         card.style.transform = 'translateY(0)';
-    });
-});
-
-// Floating Logo Animation
-document.addEventListener('DOMContentLoaded', function() {
-    const floatingLogo = document.getElementById('floating-logo');
-    const sections = ['performance', 'languages', 'team', 'contact'];
-    let currentSection = '';
-
-    function updateLogoPosition() {
-        const scrollPosition = window.scrollY + window.innerHeight / 2;
-        
-        for (let i = 0; i < sections.length; i++) {
-            const section = document.getElementById(sections[i]);
-            if (!section) continue;
-            
-            const sectionTop = section.offsetTop;
-            const sectionBottom = sectionTop + section.offsetHeight;
-            
-            if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
-                if (currentSection !== sections[i]) {
-                    currentSection = sections[i];
-                    
-                    // Simple left/right alternating position
-                    const isEven = i % 2 === 0;
-                    floatingLogo.style.left = isEven ? '10%' : '90%';
-                    floatingLogo.style.transform = `translateX(${isEven ? '-50%' : '-50%'})`;
-                    
-                    // Vertical position in middle of viewport
-                    const viewportMiddle = window.innerHeight / 2;
-                    floatingLogo.style.top = `${viewportMiddle}px`;
-                }
-                break;
-            }
-        }
-    }
-
-    // Initial position
-    setTimeout(updateLogoPosition, 100);
-
-    // Update on scroll
-    window.addEventListener('scroll', updateLogoPosition);
-    
-    // Update on resize
-    let resizeTimeout;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(updateLogoPosition, 100);
     });
 });
