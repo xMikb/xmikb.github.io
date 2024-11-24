@@ -96,15 +96,12 @@ let positions = [];
 
 // Initialize position markers for each section
 function initPositionMarkers() {
+    positions = [];
     sections.forEach((section, index) => {
-        const marker = document.createElement('div');
-        marker.className = `logo-position-marker ${index % 2 === 0 ? 'right' : 'left'}`;
-        section.appendChild(marker);
-        
-        const rect = marker.getBoundingClientRect();
+        const rect = section.getBoundingClientRect();
         positions[index] = {
-            top: rect.top + window.scrollY,
-            left: marker.classList.contains('left'),
+            top: rect.top + window.scrollY + (rect.height / 2),
+            left: index % 2 === 0
         };
     });
 }
@@ -116,18 +113,19 @@ function updateLogoPosition() {
     // Find the current section
     let activeSection = 0;
     positions.forEach((pos, index) => {
-        if (scrollPosition >= pos.top) {
+        if (scrollPosition >= pos.top - window.innerHeight / 2) {
             activeSection = index;
         }
     });
     
-    if (activeSection !== currentSection) {
+    if (activeSection !== currentSection || !currentSection) {
         currentSection = activeSection;
         
         // Update logo position
         const position = positions[currentSection];
         if (position) {
-            floatingLogo.style.top = `${position.top}px`;
+            const targetTop = position.top - window.scrollY;
+            floatingLogo.style.top = `${targetTop}px`;
             floatingLogo.style.transform = `translate(${position.left ? '-50%' : '50%'}, -50%)`;
             floatingLogo.style.left = position.left ? '10%' : '90%';
         }
@@ -146,8 +144,11 @@ window.addEventListener('scroll', () => {
 });
 
 // Update positions on window resize
+let resizeTimeout;
 window.addEventListener('resize', () => {
-    positions = [];
-    initPositionMarkers();
-    updateLogoPosition();
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        initPositionMarkers();
+        updateLogoPosition();
+    }, 100);
 });
