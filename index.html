@@ -112,11 +112,12 @@ body {
 /* Sections */
 .section {
     padding: 4rem 0;
-    background-color: var(--bg-antra);
+    background-color: var(--bg-antra) !important;
     overflow: hidden; /* Prevent horizontal scroll */
 }
-.section:has(.logo-carousel) {
-    padding-bottom: 2rem; /* Reduced bottom padding */
+
+.section:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.02) !important;
 }
     
 .section-title {
@@ -675,17 +676,17 @@ section {
     width: 100%;
     padding: 4rem 0;
     overflow: hidden;
-    background-color: var(--bg-antra);
+    background-color: var(--bg-antra) !important;
 }
 .carousel-container {
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: var(--bg-antra);
+    background-color: var(--bg-antra) !important;
 }
 .carousel-container,
 .logo-carousel {
-    background-color: var(--bg-antra);
+    background-color: var(--bg-antra) !important;
 }
     
 .carousel-track:hover {
@@ -822,7 +823,7 @@ html {
 </style>
     <!-- Loading Animation -->
     <div class="loading">
-        <img src="assets/img/Beyondlogo.png" alt="Loading..." style="width: 250px;">
+        <img src="assets/img/Beyondlogo.png" alt="Loading..." style="width: 150px;">
     </div>
     
 <div class="section-separator"></div>
