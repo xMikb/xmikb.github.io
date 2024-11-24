@@ -2,18 +2,7 @@
 
 /* Navigation Improvements */
 #mainNav {
-    transition: all 0.3s ease-in-out;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-#mainNav.navbar-shrink {
-    background-color: rgba(18, 18, 24, 0.95);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.navbar-blur {
-    background-color: rgba(18, 18, 24, 0.8);
+    display: none;
 }
 
 /* Hero Section Improvements */
@@ -23,7 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to bottom, rgba(18, 18, 24, 0.8), rgba(18, 18, 24, 0.95));
+    background: linear-gradient(to bottom, rgba(18, 18, 24, 0.8), #121218);
 }
 
 .hero-content {
@@ -71,14 +60,18 @@
 }
 
 /* Section Improvements */
+body {
+    background-color: #121218;
+}
+
 .section {
     padding: 6rem 0;
-    background-color: var(--bs-antra);
+    background-color: transparent;
     position: relative;
 }
 
 .section:nth-child(odd) {
-    background-color: rgba(255, 255, 255, 0.02);
+    background-color: transparent;
 }
 
 .section-title {
@@ -139,6 +132,37 @@
 .social a:hover {
     background: var(--bs-primary);
     transform: translateY(-3px);
+}
+
+/* Floating Logo */
+#floating-logo {
+    position: fixed;
+    z-index: 1000;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.floating-logo-img {
+    width: 150px;
+    height: auto;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+}
+
+/* Section position markers for the logo */
+.logo-position-marker {
+    position: absolute;
+    top: 50%;
+    opacity: 0;
+    height: 1px;
+}
+
+.logo-position-marker.right {
+    right: 10%;
+}
+
+.logo-position-marker.left {
+    left: 10%;
 }
 
 /* Responsive Improvements */
