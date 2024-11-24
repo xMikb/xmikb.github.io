@@ -1,5 +1,4 @@
 // Custom JavaScript for Beyond Audit website
-
 // Loading Animation
 window.addEventListener('load', () => {
     const loader = document.querySelector('.loading');
@@ -8,7 +7,6 @@ window.addEventListener('load', () => {
         loader.style.display = 'none';
     }, 500);
 });
-
 // Smooth Scroll for Navigation Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -22,14 +20,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
-
 // Intersection Observer for Fade-in Animations
 const observerOptions = {
     root: null,
     threshold: 0.1,
     rootMargin: '0px'
 };
-
 const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -38,13 +34,11 @@ const observer = new IntersectionObserver((entries, observer) => {
         }
     });
 }, observerOptions);
-
 // Add fade-in animation to sections
 document.querySelectorAll('.section').forEach(section => {
     section.classList.add('fade-in-element');
     observer.observe(section);
 });
-
 // Dynamic Copyright Year
 document.addEventListener('DOMContentLoaded', () => {
     const yearElement = document.querySelector('.copyright-year');
@@ -52,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
         yearElement.textContent = new Date().getFullYear();
     }
 });
-
 // Navbar Background Change on Scroll
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('#mainNav');
@@ -62,7 +55,6 @@ window.addEventListener('scroll', () => {
         navbar.classList.remove('navbar-shrink');
     }
 });
-
 // Add hover effect to cards
 document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('mouseenter', () => {
