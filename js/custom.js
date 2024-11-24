@@ -53,14 +53,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Navbar Background Change on Scroll
+// Navbar Hide/Show on Scroll
+let lastScrollTop = 0;
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('#mainNav');
-    if (window.scrollY > 50) {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (currentScroll > lastScrollTop) {
+        // Scrolling down
+        navbar.style.transform = 'translateY(-100%)';
+    } else {
+        // Scrolling up
+        navbar.style.transform = 'translateY(0)';
+    }
+    
+    // Add background when scrolled
+    if (currentScroll > 50) {
         navbar.classList.add('navbar-shrink');
     } else {
         navbar.classList.remove('navbar-shrink');
     }
+    
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 });
 
 // Add hover effect to cards
@@ -72,4 +86,68 @@ document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('mouseleave', () => {
         card.style.transform = 'translateY(0)';
     });
+});
+
+// Floating Logo Animation
+const floatingLogo = document.querySelector('#floating-logo');
+const sections = document.querySelectorAll('.section');
+let currentSection = 0;
+let positions = [];
+
+// Initialize position markers for each section
+function initPositionMarkers() {
+    sections.forEach((section, index) => {
+        const marker = document.createElement('div');
+        marker.className = `logo-position-marker ${index % 2 === 0 ? 'right' : 'left'}`;
+        section.appendChild(marker);
+        
+        const rect = marker.getBoundingClientRect();
+        positions[index] = {
+            top: rect.top + window.scrollY,
+            left: marker.classList.contains('left'),
+        };
+    });
+}
+
+// Update logo position based on scroll
+function updateLogoPosition() {
+    const scrollPosition = window.scrollY + window.innerHeight / 2;
+    
+    // Find the current section
+    let activeSection = 0;
+    positions.forEach((pos, index) => {
+        if (scrollPosition >= pos.top) {
+            activeSection = index;
+        }
+    });
+    
+    if (activeSection !== currentSection) {
+        currentSection = activeSection;
+        
+        // Update logo position
+        const position = positions[currentSection];
+        if (position) {
+            floatingLogo.style.top = `${position.top}px`;
+            floatingLogo.style.transform = `translate(${position.left ? '-50%' : '50%'}, -50%)`;
+            floatingLogo.style.left = position.left ? '10%' : '90%';
+        }
+    }
+}
+
+// Initialize on page load
+window.addEventListener('load', () => {
+    initPositionMarkers();
+    updateLogoPosition();
+});
+
+// Update on scroll
+window.addEventListener('scroll', () => {
+    requestAnimationFrame(updateLogoPosition);
+});
+
+// Update positions on window resize
+window.addEventListener('resize', () => {
+    positions = [];
+    initPositionMarkers();
+    updateLogoPosition();
 });
