@@ -53,8 +53,7 @@
 /* Base & Layout */
 :root {
     --bg-antra: #0a0a0f;
-    --bg-section: rgba(255, 255, 255, 0.03);
-    --bg-card: rgba(255, 255, 255, 0.06);
+    --bg-card: rgba(255, 255, 255, 0.05);
     --text-white: #ffffff;
     --text-gray: rgba(156, 163, 175, 0.9);
     --primary: rgb(147, 51, 234);
@@ -77,15 +76,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: -0.015em;
-}
-
-/* Ensure sections have the lighter background */
-.section {
-    background-color: var(--bg-section) !important;
-}
-
-.footer {
-    background-color: var(--bg-section) !important;
 }
 
 /* Update card typography */
@@ -138,7 +128,7 @@ body {
 /* Sections */
 .section {
     padding: 4rem 0;
-    background-color: var(--bg-section);
+    background-color: var(--bg-antra);
     overflow: hidden; /* Prevent horizontal scroll */
 }
 
@@ -153,12 +143,12 @@ body {
     font-weight: 700;
     text-align: center;
     margin-bottom: 4rem;
+    padding-bottom: 1rem;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    padding-bottom: 1rem;  
     background: linear-gradient(
         to right,
         rgb(147, 51, 234) 0%,
@@ -342,50 +332,6 @@ body {
     color: var(--text-white);
     font-weight: 600;
 }
-
-/* Navigation */
-.navbar {
-    position: fixed;
-    width: 100%;
-    padding: 1rem;
-    z-index: 100;
-    transition: background-color 0.3s;
-}
-
-.navbar.scrolled {
-    background-color: rgba(18, 18, 24, 0.9);
-    backdrop-filter: blur(10px);
-}
-
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navbar-logo img {
-    height: 40px;
-}
-
-.nav-links {
-    display: flex;
-    gap: 2rem;
-}
-
-.nav-links a {
-    color: var(--text-white);
-    text-decoration: none;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    transition: color 0.3s;
-}
-
-.nav-links a:hover {
-    color: var(--primary);
-}
     
 /* Contact Section */
 .social-links {
@@ -410,7 +356,7 @@ body {
 .footer {
     padding: 2rem 0;
     text-align: center;
-    background-color: var(--bg-antra) !important;
+    background-color: #0a0a0f !important;
     position: relative;
 }
 
@@ -823,11 +769,6 @@ body {
     }
 }
 
-/* Updated z-index for other sections to ensure proper layering */
-.navbar {
-    z-index: 10;
-}
-
 section {
     position: relative;
     z-index: 5;
@@ -839,19 +780,19 @@ section {
     width: 100%;
     padding: 4rem 0;
     overflow: hidden;
-    background-color: var(--bg-section);
+    background-color: var(--bg-antra);
 }
 
 .carousel-container {
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: var(--bg-section);
+    background-color: var(--bg-antra);
 }
 
 .carousel-container,
 .logo-carousel {
-    background-color: var(--bg-section);
+    background-color: var(--bg-antra);
 }
     
 .carousel-track:hover {
@@ -941,12 +882,12 @@ section {
 
 .logo-carousel::before {
     left: 0;
-    background: linear-gradient(to right, var(--bg-section) 0%, transparent 100%);
+    background: linear-gradient(to right, var(--bg-antra) 0%, transparent 100%);
 }
 
 .logo-carousel::after {
     right: 0;
-    background: linear-gradient(to left, var(--bg-section) 0%, transparent 100%);
+    background: linear-gradient(to left, var(--bg-antra) 0%, transparent 100%);
 }
 
 /* Responsive adjustments */
@@ -1221,23 +1162,6 @@ html {
 </body>
     
 <script>
-
-// Handle window resize
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(initFloatingImages, 250);
-});
-
-// Reinitialize on window resize
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-        const container = document.getElementById('floatingImages');
-        container.innerHTML = '';
-        initFloatingImages();
-    }, 250);
-});
-
 document.addEventListener('DOMContentLoaded', () => {
     const track = document.querySelector('.carousel-track');
     const slides = track.getElementsByClassName('carousel-slide');
