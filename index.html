@@ -52,8 +52,8 @@
 <style>
 /* Base & Layout */
 :root {
-    --bg-antra: #101010;
-    --bg-section: rgba(255, 255, 255, 0.04);
+    --bg-antra: #0a0a0f;
+    --bg-section: rgba(255, 255, 255, 0.03);
     --bg-card: rgba(255, 255, 255, 0.06);
     --text-white: #ffffff;
     --text-gray: rgba(156, 163, 175, 0.9);
@@ -410,7 +410,7 @@ body {
 .footer {
     padding: 2rem 0;
     text-align: center;
-    background-color: var(--bg-section) !important;
+    background-color: var(--bg-antra) !important;
     position: relative;
 }
 
@@ -709,7 +709,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(18,18,24,0.4), rgba(18,18,24,1),var(--bg-section) 105%);
+    background: linear-gradient(to bottom, rgba(18,18,24,0.4), rgba(18,18,24,1),var(--bg-antra) 105%);
     z-index: 3;
 }
 
@@ -839,19 +839,19 @@ section {
     width: 100%;
     padding: 4rem 0;
     overflow: hidden;
-    background-color: var(--bg-antra);
+    background-color: var(--bg-section);
 }
 
 .carousel-container {
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: var(--bg-antra);
+    background-color: var(--bg-section);
 }
 
 .carousel-container,
 .logo-carousel {
-    background-color: var(--bg-antra);
+    background-color: var(--bg-section);
 }
     
 .carousel-track:hover {
@@ -941,12 +941,12 @@ section {
 
 .logo-carousel::before {
     left: 0;
-    background: linear-gradient(to right, var(--bg-antra) 0%, transparent 100%);
+    background: linear-gradient(to right, var(--bg-section) 0%, transparent 100%);
 }
 
 .logo-carousel::after {
     right: 0;
-    background: linear-gradient(to left, var(--bg-antra) 0%, transparent 100%);
+    background: linear-gradient(to left, var(--bg-section) 0%, transparent 100%);
 }
 
 /* Responsive adjustments */
@@ -1221,6 +1221,23 @@ html {
 </body>
     
 <script>
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(initFloatingImages, 250);
+});
+
+// Reinitialize on window resize
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        const container = document.getElementById('floatingImages');
+        container.innerHTML = '';
+        initFloatingImages();
+    }, 250);
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     const track = document.querySelector('.carousel-track');
     const slides = track.getElementsByClassName('carousel-slide');
