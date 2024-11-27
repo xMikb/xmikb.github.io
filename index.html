@@ -989,10 +989,12 @@ select.form-input option {
 /* Restructure contact section to place social links next to the form */
 .contact-wrapper {
     display: flex;
-    gap: 1rem;  /* Reduced from 2rem to 1rem */
+    gap: 3rem; /* Increased gap between form and socials */
     justify-content: center;
     align-items: flex-start;
     padding: 2rem;
+    max-width: 900px; /* Added max-width to center content */
+    margin: 0 auto; /* Center the wrapper */
 }
 
 .social-container {
@@ -1082,24 +1084,19 @@ select.form-input option {
     }
 }
 
-.contact-wrapper {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 2rem;
-}
-
 .contact-form-container {
-    width: 100%;
-    max-width: 500px;
+    flex: 1;
+    max-width: 600px;
+    margin: 0;
 }
 
+/* Social links adjustments */
 .social {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
-    margin-top: 2rem;
+    gap: 2.5rem; /* Increased gap between social icons */
+    margin: 0; /* Remove default margin */
+    padding-top: 1rem; /* Add some top padding to align with form */
 }
 
 .social a {
@@ -1119,28 +1116,36 @@ select.form-input option {
 
 .social a:hover {
     transform: translateX(-5px);
-    background: var(--bg-section);
+    background: rgba(255, 255, 255, 0.05);
     border-color: var(--primary);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .contact-wrapper {
         flex-direction: column;
         align-items: center;
+        gap: 2rem;
         padding: 1rem;
     }
 
     .social {
         flex-direction: row;
-        margin-top: 2rem;
+        gap: 2rem;
+        padding-top: 0;
+    }
+
+    .social a {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.25rem;
     }
 
     .social a:hover {
         transform: translateY(-5px);
     }
 }
-
 </style>
 
 <div class="section-separator"></div>
