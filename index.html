@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<!-- NOTE : 
-    - Caroussel pour les entreprises et les membres de la team
-    
-    - Background de gris entre les section pour aider à les differencier
-
-    - Change the font for the "Beyond the audit"
-
-    - image à gauche puis text à droite, si image
-    
- -->
 
 <head>
     <meta charset="utf-8" />
@@ -1089,6 +1079,66 @@ select.form-input option {
         font-size: 1.25rem;
     }
 }
+
+.contact-wrapper {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+}
+
+.contact-form-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.social {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.social a {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: var(--bg-card);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-white);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social a:hover {
+    transform: translateX(-5px);
+    background: var(--bg-section);
+    border-color: var(--primary);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .contact-wrapper {
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .social {
+        flex-direction: row;
+        margin-top: 2rem;
+    }
+
+    .social a:hover {
+        transform: translateY(-5px);
+    }
+}
+
 </style>
 
 <div class="section-separator"></div>
@@ -1312,21 +1362,19 @@ select.form-input option {
                     <button type="submit" class="btn-primary">Send</button>
                 </form>
             </div>
-            <div class="social-container">
-                <div class="social">
-                    <a href="mailto:beyondaudit0@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                    <a href="https://x.com/beyondsec" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://t.me/xMikb" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
-                        <i class="fab fa-telegram"></i>
-                    </a>
-                    <a href="https://discord.gg/KZsKH8Ja9C" target="_blank" rel="noopener noreferrer" aria-label="Discord">
-                        <i class="fab fa-discord"></i>
-                    </a>
-                </div>
+            <div class="social">
+                <a href="mailto:beyondaudit0@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://x.com/beyondsec" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://t.me/xMikb" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="https://discord.gg/KZsKH8Ja9C" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+                    <i class="fab fa-discord"></i>
+                </a>
             </div>
         </div>
     </div>
@@ -1343,7 +1391,6 @@ select.form-input option {
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <!-- * *                               SB Forms JS                               * *-->
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
 </body>
     
