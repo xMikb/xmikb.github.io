@@ -989,8 +989,10 @@ select.form-input option {
 /* Restructure contact section to place social links next to the form */
 .contact-wrapper {
     display: flex;
-    gap: 2rem;
+    gap: 1rem;  /* Reduced from 2rem to 1rem */
     justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
 }
 
 .social-container {
@@ -1001,8 +1003,8 @@ select.form-input option {
 
 .social {
     display: flex;
-    justify-content: center;
-    gap: 2rem;
+    flex-direction: column;
+    gap: 2.5rem;  /* Increased from 1.5rem to 2.5rem */
     margin-top: 2rem;
 }
 
@@ -1082,7 +1084,7 @@ select.form-input option {
 
 .contact-wrapper {
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
     justify-content: center;
     align-items: flex-start;
     padding: 2rem;
@@ -1096,7 +1098,7 @@ select.form-input option {
 .social {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2.5rem;
     margin-top: 2rem;
 }
 
@@ -1390,7 +1392,6 @@ select.form-input option {
     <script src="js/scripts.js"></script>
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <!-- * *                               SB Forms JS                               * *-->
-    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
     <!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
 </body>
     
