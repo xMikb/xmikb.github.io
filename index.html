@@ -33,6 +33,7 @@
             <div class="hero-content">
                 <img src="assets/img/Beyondlogo.png" alt="Beyond Logo" class="hero-logo">
                 <p class="hero-text"></p>
+                <a href="#contact" class="btn-primary">Calculate my security review</a>
                 <a href="#contact" class="btn-primary">Request a security review</a>
             </div>
         </section>
@@ -1146,6 +1147,75 @@ select.form-input option {
         transform: translateY(-5px);
     }
 }
+
+/* Calculator Section Styles */
+.calculator-section {
+    padding: 4rem 0;
+    background: var(--bg-section);
+}
+
+.calculator-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+}
+
+.calculator-form {
+    flex: 1;
+    max-width: 500px;
+}
+
+.calculator-result {
+    flex: 1;
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.price-display {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.price-breakdown {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.range-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0.25rem;
+}
+
+@media (max-width: 768px) {
+    .calculator-wrapper {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .calculator-form, .calculator-result {
+        max-width: 100%;
+    }
+}
+
 </style>
 
 <div class="section-separator"></div>
@@ -1329,6 +1399,82 @@ select.form-input option {
     </div>
 </section>
 
+<!-- Calculator Section -->
+<div class="section-separator"></div>
+<section class="section calculator-section" id="calculator">
+    <div class="container">
+        <h2 class="section-title">CALCULATE YOUR AUDIT</h2>
+        <div class="calculator-wrapper">
+            <div class="calculator-form">
+                <form id="auditCalculator" class="contact-form">
+                    <div class="form-group">
+                        <select name="language" required class="form-input" id="calcLanguage">
+                            <option value="" disabled selected>Programming language</option>
+                            <option value="solidity">Solidity</option>
+                            <option value="cairo">Cairo</option>
+                            <option value="rust">Rust</option>
+                            <option value="vyper">Vyper</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="complexity" required class="form-input" id="calcComplexity">
+                            <option value="" disabled selected>Complexity level</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="lines" placeholder="Lines of code" required class="form-input" id="calcLines" min="100">
+                    </div>
+                    <div class="form-group">
+                        <label class="range-label">Number of Auditors</label>
+                        <input type="range" name="auditors" min="1" max="4" value="2" class="form-input" id="calcAuditors">
+                        <div class="range-info">
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="range-label">Audit Duration (Days)</label>
+                        <input type="range" name="days" min="3" max="14" value="5" class="form-input" id="calcDays">
+                        <div class="range-info">
+                            <span>3</span>
+                            <span>7</span>
+                            <span>10</span>
+                            <span>14</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="calculator-result">
+                <h3>Estimated Price</h3>
+                <div class="price-display" id="totalPrice">$0</div>
+                <div class="price-breakdown">
+                    <div class="breakdown-item">
+                        <span>Base Price:</span>
+                        <span id="basePrice">$0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Complexity Factor:</span>
+                        <span id="complexityFactor">1x</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Team Cost:</span>
+                        <span id="teamCost">$0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Overhead (10%):</span>
+                        <span id="overhead">$0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Contact Section -->
 <div class="section-separator"></div>
 <section class="section" id="contact">
@@ -1408,4 +1554,76 @@ document.addEventListener('DOMContentLoaded', () => {
 });                          
 </script>
     
+<script>
+// Pricing Calculator
+function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, numDays) {
+    // Base rates per language ($ per line of code)
+    const languageRates = {
+        'solidity': 0.30,
+        'cairo': 0.35,
+        'rust': 0.28,
+        'vyper': 0.32
+    };
+
+    // Complexity multipliers
+    const complexityMultipliers = {
+        'low': 1,
+        'medium': 1.5,
+        'high': 2
+    };
+
+    // Calculate base price based on language and lines of code
+    const baseRate = languageRates[language] || 0.30;
+    const basePricePerLine = baseRate * linesOfCode;
+
+    // Apply complexity multiplier
+    const complexityMultiplier = complexityMultipliers[complexity] || 1;
+    const priceWithComplexity = basePricePerLine * complexityMultiplier;
+
+    // Auditor and time factors
+    const auditorDayRate = 1000;
+    const teamCost = auditorDayRate * numAuditors * numDays;
+
+    // Calculate components
+    const basePrice = basePricePerLine;
+    const overhead = (priceWithComplexity + teamCost) * 0.1;
+    const totalPrice = priceWithComplexity + teamCost + overhead;
+
+    return {
+        basePrice: Math.round(basePrice),
+        complexityMultiplier: complexityMultiplier,
+        teamCost: Math.round(teamCost),
+        overhead: Math.round(overhead),
+        total: Math.round(totalPrice)
+    };
+}
+
+// Update price display
+function updatePrice() {
+    const language = document.getElementById('calcLanguage').value;
+    const complexity = document.getElementById('calcComplexity').value;
+    const lines = parseInt(document.getElementById('calcLines').value) || 0;
+    const auditors = parseInt(document.getElementById('calcAuditors').value);
+    const days = parseInt(document.getElementById('calcDays').value);
+
+    if (language && complexity && lines) {
+        const price = calculateAuditPrice(language, complexity, lines, auditors, days);
+        
+        document.getElementById('totalPrice').textContent = `$${price.total.toLocaleString()}`;
+        document.getElementById('basePrice').textContent = `$${price.basePrice.toLocaleString()}`;
+        document.getElementById('complexityFactor').textContent = `${price.complexityMultiplier}x`;
+        document.getElementById('teamCost').textContent = `$${price.teamCost.toLocaleString()}`;
+        document.getElementById('overhead').textContent = `$${price.overhead.toLocaleString()}`;
+    }
+}
+
+// Add event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('auditCalculator');
+    const inputs = form.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        input.addEventListener('input', updatePrice);
+    });
+});
+</script>
 </html>
