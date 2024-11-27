@@ -33,8 +33,10 @@
             <div class="hero-content">
                 <img src="assets/img/Beyondlogo.png" alt="Beyond Logo" class="hero-logo">
                 <p class="hero-text"></p>
-                <a href="#contact" class="btn-primary">Calculate my security review</a>
-                <a href="#contact" class="btn-primary">Request a security review</a>
+                <div class="hero-buttons">
+                    <a href="#calculator" class="btn-primary">Calculate my security review</a>
+                    <a href="#contact" class="btn-primary">Request a security review</a>
+                </div>
             </div>
         </section>
 
@@ -672,7 +674,42 @@ body {
     width: 80%;
     margin-bottom: 6rem;
 }
-    
+
+/* Hero buttons styling */
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+    .hero-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+/* Calculator result styling */
+.calculator-result {
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.calculator-result h3 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--text-white);
+}
+
+.price-display {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 2rem 0;
+    text-align: center;
+}
+
 .btn-primary {
     background: linear-gradient(
         135deg,
@@ -1452,24 +1489,6 @@ select.form-input option {
             <div class="calculator-result">
                 <h3>Estimated Price</h3>
                 <div class="price-display" id="totalPrice">$0</div>
-                <div class="price-breakdown">
-                    <div class="breakdown-item">
-                        <span>Base Price:</span>
-                        <span id="basePrice">$0</span>
-                    </div>
-                    <div class="breakdown-item">
-                        <span>Complexity Factor:</span>
-                        <span id="complexityFactor">1x</span>
-                    </div>
-                    <div class="breakdown-item">
-                        <span>Team Cost:</span>
-                        <span id="teamCost">$0</span>
-                    </div>
-                    <div class="breakdown-item">
-                        <span>Overhead (10%):</span>
-                        <span id="overhead">$0</span>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -1565,7 +1584,7 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
         'vyper': 0.32
     };
 
-    // Complexity multipliers
+    // Complexity multipliers3
     const complexityMultipliers = {
         'low': 1,
         'medium': 1.5,
