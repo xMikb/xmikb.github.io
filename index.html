@@ -995,6 +995,100 @@ select.form-input option {
         padding: 1.5rem;
     }
 }
+
+/* Restructure contact section to place social links next to the form */
+.contact-wrapper {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.social-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.social a {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: #0a0a0f;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.social a:hover {
+    color: var(--primary);
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    border-color: var(--primary);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
+}
+
+.social a:active {
+    transform: translateY(0);
+}
+
+/* Add subtle animations for icons */
+.social a i {
+    transition: transform 0.3s ease;
+}
+
+.social a:hover i {
+    transform: scale(1.1);
+}
+
+/* Custom colors for different platforms */
+.social a:nth-child(1):hover { /* Email */
+    color: #ea4335;
+    border-color: #ea4335;
+    box-shadow: 0 5px 15px rgba(234, 67, 53, 0.2);
+}
+
+.social a:nth-child(2):hover { /* Twitter */
+    color: #1da1f2;
+    border-color: #1da1f2;
+    box-shadow: 0 5px 15px rgba(29, 161, 242, 0.2);
+}
+
+.social a:nth-child(3):hover { /* Discord */
+    color: #7289da;
+    border-color: #7289da;
+    box-shadow: 0 5px 15px rgba(114, 137, 218, 0.2);
+}
+
+.social a:nth-child(4):hover { /* Telegram */
+    color: #0088cc;
+    border-color: #0088cc;
+    box-shadow: 0 5px 15px rgba(0, 136, 204, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .social {
+        gap: 1rem;
+    }
+
+    .social a {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.25rem;
+    }
+}
 </style>
 
 <div class="section-separator"></div>
@@ -1183,53 +1277,57 @@ select.form-input option {
 <section class="section" id="contact">
     <div class="container">
         <h2 class="section-title">CONTACT</h2>
-        <div class="contact-form-container">
-            <form action="https://formspree.io/f/mkgnqvjn" method="POST" class="contact-form">
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Your Email" required class="form-input">
+        <div class="contact-wrapper">
+            <div class="contact-form-container">
+                <form action="https://formspree.io/f/mkgnqvjn" method="POST" class="contact-form">
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your Email" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="protocol" placeholder="Protocol name" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <select name="language" required class="form-input">
+                            <option value="" disabled selected>Programming language</option>
+                            <option value="solidity">Solidity</option>
+                            <option value="cairo">Cairo</option>
+                            <option value="rust">Rust</option>
+                            <option value="vyper">Vyper</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="lines" placeholder="Lines of code" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <select name="Complexity" required class="form-input">
+                            <option value="" disabled selected>Complexity level</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Additional details" required class="form-input form-textarea"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Send</button>
+                </form>
+            </div>
+            <div class="social-container">
+                <div class="social">
+                    <a href="mailto:beyondaudit0@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://x.com/beyondsec" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://t.me/xMikb" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="https://discord.gg/KZsKH8Ja9C" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+                        <i class="fab fa-discord"></i>
+                    </a>
                 </div>
-                <div class="form-group">
-                    <input type="text" name="protocol" placeholder="Protocol name" required class="form-input">
-                </div>
-                <div class="form-group">
-                    <select name="language" required class="form-input">
-                        <option value="" disabled selected>Programming language</option>
-                        <option value="solidity">Solidity</option>
-                        <option value="cairo">Cairo</option>
-                        <option value="rust">Rust</option>
-                        <option value="vyper">Vyper</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <input type="number" name="lines" placeholder="Lines of code" required class="form-input">
-                </div>
-                <div class="form-group">
-                    <select name="Complexity" required class="form-input">
-                        <option value="" disabled selected>Complexity level</option>
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <textarea name="message" placeholder="Additional details" required class="form-input form-textarea"></textarea>
-                </div>
-                <button type="submit" class="btn-primary">Send</button>
-            </form>
-        </div>
-        <div class="social">
-            <a href="mailto:beyondaudit0@gmail.com" aria-label="Email">
-                <i class="fas fa-envelope"></i>
-            </a>
-            <a href="https://x.com/beyondsec" aria-label="Twitter">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="https://discord.gg/KZsKH8Ja9C" aria-label="Discord">
-                <i class="fab fa-discord"></i>
-            </a>
-            <a href="https://t.me/xMikb" aria-label="Telegram">
-                <i class="fab fa-telegram"></i>
-            </a>
+            </div>
         </div>
     </div>
 </section>
