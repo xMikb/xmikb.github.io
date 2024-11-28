@@ -1322,10 +1322,8 @@ select.form-input option {
     }
 }
 
-/* Range container */
 .range-container {
     margin-bottom: 1.5rem;
-    position: relative;
 }
 
 /* Label styling */
@@ -1338,25 +1336,31 @@ select.form-input option {
 /* Range input styling */
 input[type="range"] {
     -webkit-appearance: none;
-    width: calc(100% - 2rem);
+    width: 100%;
     height: 48px;
-    margin: 0 1rem;
+    padding: 0 1rem;
     background: rgba(255, 255, 255, 0.03) !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
+    transition: all 0.3s ease;
     cursor: pointer;
+    margin: 0;
 }
 
-/* Range track */
+/* Range input track */
 input[type="range"]::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 4px;
     background: var(--bg-card) !important;
-    border: none;
-    cursor: pointer;
 }
 
-/* Range thumb */
+input[type="range"]::-moz-range-track {
+    width: calc(100% - 2rem);
+    height: 4px;
+    background: var(--bg-card);
+    border-radius: 2px;
+    border: none;
+}
+
+/* Range input thumb */
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     height: 16px;
@@ -1364,39 +1368,51 @@ input[type="range"]::-webkit-slider-thumb {
     border-radius: 50%;
     background: var(--primary);
     margin-top: -6px;
-    cursor: pointer;
+    border: none;
     box-shadow: 0 0 10px rgba(147, 51, 234, 0.3);
+    transition: all 0.3s ease;
+}
+
+input[type="range"]::-moz-range-thumb {
+    background: var(--bg-card) !important;
+}
+
+/* Range input hover and focus states */
+input[type="range"]:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+input[type="range"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(147, 51, 234, 0.2);
 }
 
 /* Range values display */
 .range-info {
     display: flex;
     justify-content: space-between;
-    width: calc(100% - 2rem);
-    margin: 0.5rem 1rem 0;
-    position: relative;
+    margin-top: 0.5rem;
+    padding: 0 1rem; /* Match input padding */
+    width: 100%;
 }
 
 .range-info span {
     font-size: 0.875rem;
     color: var(--text-gray);
+    transition: all 0.3s ease;
     position: relative;
-    padding-top: 8px;
-    width: 20px;
-    text-align: center;
-    transform: translateX(-50%);
 }
 
-/* Tick marks */
 .range-info span::before {
     content: '';
     position: absolute;
-    top: 0;
+    top: -8px;
     left: 50%;
+    transform: translateX(-50%);
     width: 2px;
     height: 4px;
     background: var(--text-gray);
-    transform: translateX(-50%);
 }
 
 .range-info span.active {
@@ -1406,18 +1422,6 @@ input[type="range"]::-webkit-slider-thumb {
 .range-info span.active::before {
     background: var(--primary);
 }
-
-/* For the days slider specifically */
-#calcDays + .range-info {
-    margin-left: 1rem;
-    margin-right: 1rem;
-}
-
-#calcDays + .range-info span {
-    font-size: 0.75rem; /* Smaller text for many numbers */
-    transform: translateX(-50%);
-}
-
 
 /* Center socials vertically */
 .contact-wrapper {
@@ -1609,7 +1613,7 @@ input[type="range"]::-webkit-slider-thumb {
             </div>
 
             <div class="team-card">
-                <a href="https://x.com/0xLe_Rems" target="_blank" class="team-link"></a>
+                <a href="https://x.com/0xLe_Rems" target="_blank" class="team-link">
                     <div class="team-image-wrapper">
                         <img src="assets/img/remspp.jpg" alt="Rems" class="team-image">
                     </div>
@@ -1665,18 +1669,8 @@ input[type="range"]::-webkit-slider-thumb {
                         <input type="range" name="days" min="1" max="14" value="1" class="form-input" id="calcDays">
                         <div class="range-info">
                             <span>1</span>
-                            <span>2</span>
-                            <span>3</span>
-                            <span>4</span>
-                            <span>5</span>
-                            <span>6</span>
                             <span>7</span>
-                            <span>8</span>
-                            <span>9</span>
                             <span>10</span>
-                            <span>11</span>
-                            <span>12</span>
-                            <span>13</span>
                             <span>14</span>
                         </div>
                     </div>
