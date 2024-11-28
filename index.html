@@ -1253,6 +1253,74 @@ select.form-input option {
     }
 }
 
+.info-card {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+}
+
+.info-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--text-white);
+}
+
+.info-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.info-item i {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-top: 0.2rem;
+}
+
+.info-item strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-white);
+}
+
+.info-item p, .info-item ul {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.info-item ul {
+    padding-left: 1.2rem;
+    list-style-type: none;
+}
+
+.info-item ul li {
+    margin-bottom: 0.3rem;
+    position: relative;
+}
+
+.info-item ul li:before {
+    content: "•";
+    color: var(--primary);
+    position: absolute;
+    left: -1rem;
+}
+
+@media (max-width: 768px) {
+    .info-item {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .info-item i {
+        font-size: 1.2rem;
+    }
+}
 </style>
 
 <div class="section-separator"></div>
@@ -1489,6 +1557,34 @@ select.form-input option {
             <div class="calculator-result">
                 <h3>Estimated Price</h3>
                 <div class="price-display" id="totalPrice">$0</div>
+                <div class="info-card">
+                    <h4>Important Information</h4>
+                    <div class="info-item">
+                        <i class="fas fa-chart-line"></i>
+                        <div>
+                            <strong>Complexity Levels:</strong>
+                            <ul>
+                                <li>Low: Simple token contracts</li>
+                                <li>Medium: DEX, lending protocols</li>
+                                <li>High: Complex DeFi, cross-chain</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-code"></i>
+                        <div>
+                            <strong>Lines of Code:</strong>
+                            <p>Count only actual code lines (excluding comments, empty lines, and imports)</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div>
+                            <strong>Extended Audits:</strong>
+                            <p>For audits requiring more than 14 days, please use our contact form for a custom quote</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
