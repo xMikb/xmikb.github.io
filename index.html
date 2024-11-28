@@ -1811,10 +1811,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, numDays) {
     // Base rates per language ($ per line of code)
     const languageRates = {
-        'solidity': 0.30,
-        'cairo': 0.35,
-        'rust': 0.28,
-        'vyper': 0.32
+        'solidity': 0.85,
+        'cairo': 1.2,
+        'rust': 1,
+        'vyper': 0.95
     };
 
     // Complexity multipliers3
@@ -1825,7 +1825,7 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
     };
 
     // Calculate base price based on language and lines of code
-    const baseRate = languageRates[language] || 0.30;
+    const baseRate = languageRates[language] || 0.25;
     const basePricePerLine = baseRate * linesOfCode;
 
     // Apply complexity multiplier
@@ -1833,7 +1833,7 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
     const priceWithComplexity = basePricePerLine * complexityMultiplier;
 
     // Auditor and time factors
-    const auditorDayRate = 1000;
+    const auditorDayRate = 500;
     const teamCost = auditorDayRate * numAuditors * numDays;
 
     // Calculate components
@@ -1908,7 +1908,7 @@ document.getElementById('calcDays').addEventListener('input', function() {
     const days = this.value;
     document.getElementById('daysValue').textContent = days;
     // Add 'Day' or 'Days' based on the value
-    const daysText = days === '1' ? 'Day' : 'Days';
+    const daysText = days === '1' ? 'day' : 'days';
     document.getElementById('daysValue').nextElementSibling.textContent = ` ${daysText}`;
 });
 </script>
