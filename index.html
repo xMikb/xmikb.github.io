@@ -1322,99 +1322,109 @@ select.form-input option {
     }
 }
 
-/* Enhanced Range Input Styling */
 .range-container {
-    padding: 0.5rem 0;
+    margin-bottom: 1.5rem;
 }
 
+/* Label styling */
+.range-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-gray);
+}
+
+/* Range input styling */
 input[type="range"] {
     -webkit-appearance: none;
     width: 100%;
-    height: 4px;
-    background: linear-gradient(to right, var(--primary) 0%, var(--primary) 50%, var(--bg-card) 50%, var(--bg-card) 100%);
-    border-radius: 2px;
-    margin: 1.5rem 0;
+    height: 48px; /* Match height of other inputs */
+    padding: 0 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin: 0;
 }
 
+/* Range input track */
+input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    background: var(--bg-card);
+    border-radius: 2px;
+    border: none;
+}
+
+input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    background: var(--bg-card);
+    border-radius: 2px;
+    border: none;
+}
+
+/* Range input thumb */
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 24px;
-    height: 24px;
-    background: var(--primary);
+    height: 16px;
+    width: 16px;
     border-radius: 50%;
-    cursor: pointer;
-    border: 3px solid var(--bg-antra);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-    transition: all 0.2s ease;
-}
-
-input[type="range"]::-webkit-slider-thumb:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.4);
+    background: var(--primary);
+    margin-top: -6px;
+    border: none;
+    box-shadow: 0 0 10px rgba(147, 51, 234, 0.3);
+    transition: all 0.3s ease;
 }
 
 input[type="range"]::-moz-range-thumb {
-    width: 24px;
-    height: 24px;
-    background: var(--primary);
+    height: 16px;
+    width: 16px;
     border-radius: 50%;
-    cursor: pointer;
-    border: 3px solid var(--bg-antra);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-    transition: all 0.2s ease;
+    background: var(--primary);
+    border: none;
+    box-shadow: 0 0 10px rgba(147, 51, 234, 0.3);
+    transition: all 0.3s ease;
 }
 
-.range-label {
-    color: var(--text-white);
-    margin-bottom: 1rem;
-    display: block;
-    font-weight: 500;
+/* Range input hover and focus states */
+input[type="range"]:hover {
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
+input[type="range"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(147, 51, 234, 0.2);
+}
+
+input[type="range"]:hover::-webkit-slider-thumb,
+input[type="range"]:focus::-webkit-slider-thumb {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(147, 51, 234, 0.4);
+}
+
+input[type="range"]:hover::-moz-range-thumb,
+input[type="range"]:focus::-moz-range-thumb {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(147, 51, 234, 0.4);
+}
+
+/* Range values display */
 .range-info {
     display: flex;
     justify-content: space-between;
-    margin: -0.5rem 0 0.5rem;
-    position: relative;
-    width: calc(100% - 24px);
-    margin-left: 12px;
-}
-
-.range-info::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--bg-card);
-    z-index: -1;
+    margin-top: 0.5rem;
 }
 
 .range-info span {
-    color: rgba(255, 255, 255, 0.7);
     font-size: 0.875rem;
-    position: relative;
-    padding-top: 15px;
-}
-
-.range-info span::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 8px;
-    background: var(--bg-card);
+    color: var(--text-gray);
+    transition: all 0.3s ease;
 }
 
 .range-info span.active {
     color: var(--primary);
-}
-
-.range-info span.active::before {
-    background: var(--primary);
 }
 
 /* Center socials vertically */
