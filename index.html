@@ -1322,8 +1322,10 @@ select.form-input option {
     }
 }
 
+/* Range container */
 .range-container {
     margin-bottom: 1.5rem;
+    position: relative;
 }
 
 /* Label styling */
@@ -1336,31 +1338,25 @@ select.form-input option {
 /* Range input styling */
 input[type="range"] {
     -webkit-appearance: none;
-    width: 100%;
+    width: calc(100% - 2rem);
     height: 48px;
-    padding: 0 1rem;
+    margin: 0 1rem;
     background: rgba(255, 255, 255, 0.03) !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    transition: all 0.3s ease;
     cursor: pointer;
-    margin: 0;
 }
 
-/* Range input track */
+/* Range track */
 input[type="range"]::-webkit-slider-runnable-track {
-    background: var(--bg-card) !important;
-}
-
-input[type="range"]::-moz-range-track {
-    width: calc(100% - 2rem);
+    width: 100%;
     height: 4px;
-    background: var(--bg-card);
-    border-radius: 2px;
+    background: var(--bg-card) !important;
     border: none;
+    cursor: pointer;
 }
 
-/* Range input thumb */
+/* Range thumb */
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     height: 16px;
@@ -1368,51 +1364,39 @@ input[type="range"]::-webkit-slider-thumb {
     border-radius: 50%;
     background: var(--primary);
     margin-top: -6px;
-    border: none;
+    cursor: pointer;
     box-shadow: 0 0 10px rgba(147, 51, 234, 0.3);
-    transition: all 0.3s ease;
-}
-
-input[type="range"]::-moz-range-thumb {
-    background: var(--bg-card) !important;
-}
-
-/* Range input hover and focus states */
-input[type="range"]:hover {
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-input[type="range"]:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(147, 51, 234, 0.2);
 }
 
 /* Range values display */
 .range-info {
     display: flex;
     justify-content: space-between;
-    margin-top: 0.5rem;
-    padding: 0 1rem; /* Match input padding */
-    width: 100%;
+    width: calc(100% - 2rem);
+    margin: 0.5rem 1rem 0;
+    position: relative;
 }
 
 .range-info span {
     font-size: 0.875rem;
     color: var(--text-gray);
-    transition: all 0.3s ease;
     position: relative;
+    padding-top: 8px;
+    width: 20px;
+    text-align: center;
+    transform: translateX(-50%);
 }
 
+/* Tick marks */
 .range-info span::before {
     content: '';
     position: absolute;
-    top: -8px;
+    top: 0;
     left: 50%;
-    transform: translateX(-50%);
     width: 2px;
     height: 4px;
     background: var(--text-gray);
+    transform: translateX(-50%);
 }
 
 .range-info span.active {
@@ -1422,6 +1406,18 @@ input[type="range"]:focus {
 .range-info span.active::before {
     background: var(--primary);
 }
+
+/* For the days slider specifically */
+#calcDays + .range-info {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+#calcDays + .range-info span {
+    font-size: 0.75rem; /* Smaller text for many numbers */
+    transform: translateX(-50%);
+}
+
 
 /* Center socials vertically */
 .contact-wrapper {
