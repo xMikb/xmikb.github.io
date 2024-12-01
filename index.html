@@ -1429,6 +1429,80 @@ input[type="range"]:focus {
     border-radius: 6px;
     border: 1px solid rgba(147, 51, 234, 0.2);
 }
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0.5rem;
+    }
+    
+    .team-card {
+        max-width: 100%;
+        margin: 0 auto;
+        transform: none !important;
+    }
+    
+    .section-title {
+        margin-bottom: 2rem;
+        font-size: clamp(1.8rem, 5vw, 2.2rem);
+        background: linear-gradient(
+            to right,
+            rgb(147, 51, 234) 0%,
+            rgb(192, 132, 252) 50%,
+            rgb(147, 51, 234) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        background-size: 200% auto;
+        animation: shine 5s linear infinite;
+    }
+    
+    .grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem;
+    }
+    
+    .hero-content {
+        padding: 0 1rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .hero-buttons .btn-primary {
+        width: 100%;
+    }
+    
+    .calculator-wrapper,
+    .contact-wrapper {
+        flex-direction: column;
+    }
+    
+    .calculator-form,
+    .calculator-result,
+    .contact-form-container,
+    .contact-info {
+        width: 100%;
+    }
+}
+
+/* Ensure gradient animations work properly on mobile */
+@supports (-webkit-background-clip: text) {
+    .section-title {
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+}
 </style>
 
 <div class="section-separator"></div>
