@@ -1475,6 +1475,14 @@ input[type="range"]:focus {
         grid-template-columns: 1fr;
     }
 }
+
+.recommended-days {
+    text-align: center;
+    color: #9333ea;
+    font-size: 0.9em;
+    margin-top: 5px;
+    font-weight: 500;
+}
 </style>
 
 <div class="section-separator"></div>
@@ -1730,11 +1738,13 @@ input[type="range"]:focus {
                         <div class="range-value-display">
                             <span id="daysValue">1</span> <span class="day-text">day</span>
                         </div>
-                        <input type="range" name="days" min="1" max="14" value="1" class="form-input" id="calcDays">
+                        <input type="range" name="days" min="1" max="30" value="1" class="form-input" id="calcDays">
                         <div class="range-info">
                             <span>1</span>
-                            <span>14</span>
+                            <span>15</span>
+                            <span>30</span>
                         </div>
+                        <div class="recommended-days" id="recommendedDays"></div>
                     </div>
                 </form>
             </div>
@@ -1857,7 +1867,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Pricing Calculator
 function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, numDays) {
     // Constants
-    const LINES_PER_DAY = 100;
+    const LINES_PER_AUDITOR_PER_DAY = 100;
     const AUDITOR_DAILY_RATE = 500;
 
     // Complexity multipliers
@@ -1867,57 +1877,64 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
         'high': 1.25
     };
 
-    // Calculate the minimum days needed based on lines of code (regardless of number of auditors)
-    const minimumDays = Math.ceil(linesOfCode / LINES_PER_DAY);
+    // Calculate the recommended days needed based on lines of code and number of auditors
+    const recommendedDays = Math.ceil(linesOfCode / (LINES_PER_AUDITOR_PER_DAY * numAuditors));
     
-    // Base cost for the minimum days with requested auditors
-    const baseCost = minimumDays * numAuditors * AUDITOR_DAILY_RATE;
+    // Base cost calculation (this stays constant regardless of actual days chosen)
+    const baseCost = linesOfCode * (AUDITOR_DAILY_RATE / LINES_PER_AUDITOR_PER_DAY);
     
     // Apply complexity multiplier
     const complexityMultiplier = complexityMultipliers[complexity] || 1;
-    const costWithComplexity = baseCost * complexityMultiplier;
-    
-    // If they request fewer days than minimum, they pay more but with a gentler curve
-    const rushMultiplier = numDays < minimumDays ? Math.sqrt(minimumDays / numDays) : 1;
-    const totalCost = costWithComplexity * rushMultiplier;
+    let totalCost = baseCost * complexityMultiplier;
+
+    // Apply duration adjustment multiplier
+    // If they deviate from recommended days, price increases
+    if (numDays !== recommendedDays) {
+        const deviation = Math.abs(numDays - recommendedDays) / recommendedDays;
+        const adjustmentMultiplier = 1 + (deviation * 0.5); // 50% increase per 100% deviation
+        totalCost *= adjustmentMultiplier;
+    }
+
+    // Move the days slider to recommended position
+    const daysInput = document.getElementById('calcDays');
+    if (daysInput) {
+        daysInput.value = recommendedDays;
+        // Trigger the input event to update the display
+        daysInput.dispatchEvent(new Event('input'));
+    }
     
     return {
         basePrice: Math.round(baseCost),
+        recommendedDays: recommendedDays,
         teamCost: 0,
         overhead: 0,
         total: Math.round(totalCost)
     };
 }
 
-// Update price display
 function updatePrice() {
     const language = document.getElementById('calcLanguage').value;
     const complexity = document.getElementById('calcComplexity').value;
-    const lines = parseInt(document.getElementById('calcLines').value) || 0;
-    const auditors = parseInt(document.getElementById('calcAuditors').value);
-    const days = parseInt(document.getElementById('calcDays').value);
+    const linesOfCode = parseInt(document.getElementById('calcLines').value) || 0;
+    const numAuditors = parseInt(document.getElementById('calcAuditors').value) || 1;
+    const numDays = parseInt(document.getElementById('calcDays').value) || 1;
 
-    if (language && complexity && lines) {
-        const price = calculateAuditPrice(language, complexity, lines, auditors, days);
+    if (language && complexity && linesOfCode) {
+        const price = calculateAuditPrice(language, complexity, linesOfCode, numAuditors, numDays);
+        document.getElementById('basePrice').textContent = price.basePrice.toLocaleString();
+        document.getElementById('teamCost').textContent = price.teamCost.toLocaleString();
+        document.getElementById('overhead').textContent = price.overhead.toLocaleString();
+        document.getElementById('totalPrice').textContent = price.total.toLocaleString();
         
-        document.getElementById('totalPrice').textContent = `$${price.total.toLocaleString()}`;
-        document.getElementById('basePrice').textContent = `$${price.basePrice.toLocaleString()}`;
-        document.getElementById('complexityFactor').textContent = `${price.complexityMultiplier}x`;
-        document.getElementById('teamCost').textContent = `$${price.teamCost.toLocaleString()}`;
-        document.getElementById('overhead').textContent = `$${price.overhead.toLocaleString()}`;
+        // Update recommended days display
+        const recommendedDaysElem = document.getElementById('recommendedDays');
+        if (recommendedDaysElem) {
+            recommendedDaysElem.textContent = `Recommended: ${price.recommendedDays} days`;
+        }
     }
 }
-
-// Add event listeners
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('auditCalculator');
-    const inputs = form.querySelectorAll('input, select');
-    inputs.forEach(input => {
-        input.addEventListener('input', updatePrice);
-    });
-});
 </script>
-    
+
 <script>
 function updateRangeInput(input) {
     const value = input.value;
