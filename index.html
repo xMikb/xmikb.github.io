@@ -1438,15 +1438,19 @@ input[type="range"]:focus {
 .hall-of-fame-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+    gap: 2rem;
     margin: 2rem auto;
     max-width: 1200px;
 }
 
 .protocol-card {
     text-align: center;
-    padding: 0.5rem;
+    padding: 1rem;
     transition: transform 0.3s ease;
+}
+
+.protocol-card:hover {
+    transform: translateY(-5px);
 }
 
 .protocol-logo {
@@ -1853,7 +1857,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Pricing Calculator
 function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, numDays) {
     // Constants
-    const LINES_PER_AUDITOR_PER_DAY = 100;
+    const LINES_PER_DAY = 100;
     const AUDITOR_DAILY_RATE = 500;
 
     // Complexity multipliers
@@ -1863,26 +1867,19 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
         'high': 1.25
     };
 
-    // Calculate the recommended days based on lines of code and number of auditors
-    const recommendedDays = Math.ceil(linesOfCode / (LINES_PER_AUDITOR_PER_DAY * numAuditors));
+    // Calculate the minimum days needed based on lines of code (regardless of number of auditors)
+    const minimumDays = Math.ceil(linesOfCode / LINES_PER_DAY);
     
-    // Base cost is always days * number of auditors * daily rate
-    const baseCost = recommendedDays * numAuditors * AUDITOR_DAILY_RATE;
+    // Base cost for the minimum days with requested auditors
+    const baseCost = minimumDays * numAuditors * AUDITOR_DAILY_RATE;
     
     // Apply complexity multiplier
     const complexityMultiplier = complexityMultipliers[complexity] || 1;
     const costWithComplexity = baseCost * complexityMultiplier;
     
-    // Apply time adjustment multiplier based on deviation from recommended days
-    let timeAdjustMultiplier = 1;
-    if (numDays !== recommendedDays) {
-        // Calculate how much they deviate from recommended (in either direction)
-        const deviation = Math.abs(numDays - recommendedDays) / recommendedDays;
-        // More aggressive multiplier: 1 + deviation
-        timeAdjustMultiplier = 1 + deviation;
-    }
-    
-    const totalCost = costWithComplexity * timeAdjustMultiplier;
+    // If they request fewer days than minimum, they pay more but with a gentler curve
+    const rushMultiplier = numDays < minimumDays ? Math.sqrt(minimumDays / numDays) : 1;
+    const totalCost = costWithComplexity * rushMultiplier;
     
     return {
         basePrice: Math.round(baseCost),
@@ -1910,35 +1907,6 @@ function updatePrice() {
         document.getElementById('overhead').textContent = `$${price.overhead.toLocaleString()}`;
     }
 }
-
-// Function to update recommended days
-function updateRecommendedDays() {
-    const linesOfCode = parseInt(document.getElementById('calcLines').value) || 0;
-    const numAuditors = parseInt(document.getElementById('calcAuditors').value) || 1;
-    const daysInput = document.getElementById('calcDays');
-    
-    if (linesOfCode > 0) {
-        const recommendedDays = Math.ceil(linesOfCode / (100 * numAuditors));
-        // Update the max value of the days slider if needed
-        const newMax = Math.max(14, Math.ceil(recommendedDays * 2));
-        if (daysInput.max !== newMax.toString()) {
-            daysInput.max = newMax;
-        }
-        // Set the current value to the recommended days
-        daysInput.value = recommendedDays;
-        // Update the display
-        document.getElementById('daysValue').textContent = recommendedDays;
-        // Trigger the change event to update price
-        daysInput.dispatchEvent(new Event('input'));
-        // Update the day/days text
-        const daysText = recommendedDays === 1 ? 'day' : 'days';
-        document.getElementById('daysValue').nextElementSibling.textContent = ` ${daysText}`;
-    }
-}
-
-// Add event listeners for lines of code and auditors to update recommended days
-document.getElementById('calcLines').addEventListener('input', updateRecommendedDays);
-document.getElementById('calcAuditors').addEventListener('input', updateRecommendedDays);
 
 // Add event listeners
 document.addEventListener('DOMContentLoaded', () => {
