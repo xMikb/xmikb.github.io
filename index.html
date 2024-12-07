@@ -1930,117 +1930,43 @@ function updatePrice() {
         document.getElementById('overhead').textContent = `$${price.overhead.toLocaleString()}`;
     }
 }
-</script>
 
-<script>
-// Pricing Calculator
-function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, numDays) {
-    // Constants
-    const LINES_PER_DAY = 100;
-    const AUDITOR_DAILY_RATE = 500;
-
-    // Complexity multipliers
-    const complexityMultipliers = {
-        'low': 0.9,
-        'medium': 1,
-        'high': 1.25
-    };
-
-    // Calculate the recommended days needed based on lines of code (divided by number of auditors)
-    const recommendedDays = Math.ceil(linesOfCode / (LINES_PER_DAY * numAuditors));
-    
-    // Base cost calculation
-    const baseCost = recommendedDays * numAuditors * AUDITOR_DAILY_RATE;
-    
-    // Apply complexity multiplier
-    const complexityMultiplier = complexityMultipliers[complexity] || 1;
-    let totalCost = baseCost * complexityMultiplier;
-    
-    // If they request different days than recommended, increase price
-    if (numDays !== recommendedDays) {
-        const deviation = Math.abs(numDays - recommendedDays) / recommendedDays;
-        const rushMultiplier = 1 + (deviation * 0.5); // 50% increase per 100% deviation
-        totalCost *= rushMultiplier;
-    }
-
-    // Move the days slider to recommended position when lines change
-    const daysInput = document.getElementById('calcDays');
-    const linesInput = document.getElementById('calcLines');
-    // Only move the slider if the lines input was the last changed
-    if (document.activeElement === linesInput && daysInput) {
-        daysInput.value = recommendedDays;
-        // Update the days display
-        const daysValue = document.getElementById('daysValue');
-        if (daysValue) {
-            daysValue.textContent = recommendedDays;
-        }
-        // Update the day/days text
-        const dayText = document.querySelector('.day-text');
-        if (dayText) {
-            dayText.textContent = recommendedDays === 1 ? 'day' : 'days';
-        }
-    }
-    
-    return {
-        basePrice: Math.round(baseCost),
-        recommendedDays: recommendedDays,
-        complexityMultiplier: complexityMultiplier,
-        teamCost: 0,
-        overhead: 0,
-        total: Math.round(totalCost)
-    };
-}
-
-// Update price display
-function updatePrice() {
-    const language = document.getElementById('calcLanguage').value;
-    const complexity = document.getElementById('calcComplexity').value;
-    const lines = parseInt(document.getElementById('calcLines').value) || 0;
-    const auditors = parseInt(document.getElementById('calcAuditors').value);
-    const days = parseInt(document.getElementById('calcDays').value);
-
-    if (language && complexity && lines) {
-        const price = calculateAuditPrice(language, complexity, lines, auditors, days);
-        
-        document.getElementById('totalPrice').textContent = `$${price.total.toLocaleString()}`;
-        document.getElementById('basePrice').textContent = `$${price.basePrice.toLocaleString()}`;
-        document.getElementById('complexityFactor').textContent = `${price.complexityMultiplier}x`;
-        document.getElementById('teamCost').textContent = `$${price.teamCost.toLocaleString()}`;
-        document.getElementById('overhead').textContent = `$${price.overhead.toLocaleString()}`;
-    }
-}
-</script>
-
-<script>
-document.getElementById('calcDays').addEventListener('input', function() {
-    const days = this.value;
-    document.getElementById('daysValue').textContent = days;
-    // Add 'Day' or 'Days' based on the value
-    const daysText = days === '1' ? 'day' : 'days';
-    document.getElementById('daysValue').nextElementSibling.textContent = ` ${daysText}`;
-});
-</script>
-
-<script>
 function updateRangeInput(input) {
     const value = input.value;
-    const rangeInfo = input.nextElementSibling;
-    const spans = rangeInfo.getElementsByTagName('span');
-    Array.from(spans).forEach(span => {
-        if (parseInt(span.textContent) <= value) {
-            span.classList.add('active');
-        } else {
-            span.classList.remove('active');
+    const daysValue = document.getElementById('daysValue');
+    if (daysValue) {
+        daysValue.textContent = value;
+        // Update day/days text
+        const dayText = document.querySelector('.day-text');
+        if (dayText) {
+            dayText.textContent = value === '1' ? 'day' : 'days';
         }
-    });
+    }
 }
 
-// Initialize range inputs
+// Initialize all event listeners when the document loads
 document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('auditCalculator');
+    const inputs = form.querySelectorAll('input, select');
+    
+    // Add updatePrice to all inputs
+    inputs.forEach(input => {
+        input.addEventListener('input', updatePrice);
+    });
+
+    // Add range input update to days slider
+    const daysInput = document.getElementById('calcDays');
+    if (daysInput) {
+        daysInput.addEventListener('input', function() {
+            updateRangeInput(this);
+            updatePrice();
+        });
+    }
+
+    // Initialize range inputs
     const rangeInputs = document.querySelectorAll('input[type="range"]');
     rangeInputs.forEach(input => {
         updateRangeInput(input);
-        input.addEventListener('input', () => updateRangeInput(input));
     });
 });
 </script>
