@@ -1434,6 +1434,47 @@ input[type="range"]:focus {
     border-radius: 6px;
     border: 1px solid rgba(147, 51, 234, 0.2);
 }
+
+.hall-of-fame-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+}
+
+.protocol-card {
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.protocol-card:hover {
+    transform: translateY(-5px);
+}
+
+.protocol-logo {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .hall-of-fame-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .protocol-logo {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hall-of-fame-grid {
+        grid-template-columns: 1fr;
+    }
+}
 </style>
 
 <div class="section-separator"></div>
@@ -1619,6 +1660,33 @@ input[type="range"]:focus {
     </div>
 </section>
 
+<!-- Hall of Fame Section -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">HALL OF FAME</h2>
+        <div class="hall-of-fame-grid">
+            <div class="protocol-card">
+                <img src="assets/img/bountive.png" alt="Bountive" class="protocol-logo">
+            </div>
+            <div class="protocol-card">
+                <img src="assets/img/symbiotic.png" alt="Symbiotic" class="protocol-logo">
+            </div>
+            <div class="protocol-card">
+                <img src="assets/img/size.png" alt="Size" class="protocol-logo">
+            </div>
+            <div class="protocol-card">
+                <img src="assets/img/thorchain.png" alt="Thorchain" class="protocol-logo">
+            </div>
+            <div class="protocol-card">
+                <img src="assets/img/sablier.png" alt="Sablier" class="protocol-logo">
+            </div>
+            <div class="protocol-card">
+                <img src="assets/img/arkproject.png" alt="Ark Project" class="protocol-logo">
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Calculator Section -->
 <div class="section-separator"></div>
 <section class="section calculator-section" id="calculator">
@@ -1796,7 +1864,7 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
     const complexityMultipliers = {
         'low': 0.9,
         'medium': 1,
-        'high': 1.1
+        'high': 1.25
     };
 
     // Calculate the minimum days needed based on lines of code (regardless of number of auditors)
