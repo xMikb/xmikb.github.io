@@ -1853,7 +1853,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Pricing Calculator
 function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, numDays) {
     // Constants
-    const LINES_PER_DAY = 100;
+    const LINES_PER_AUDITOR_PER_DAY = 100;
     const AUDITOR_DAILY_RATE = 500;
 
     // Complexity multipliers
@@ -1863,25 +1863,35 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
         'high': 1.25
     };
 
-    // Calculate the minimum days needed based on lines of code (regardless of number of auditors)
-    const minimumDays = Math.ceil(linesOfCode / LINES_PER_DAY);
+    // Calculate the recommended days based on lines of code and number of auditors
+    const recommendedDays = Math.ceil(linesOfCode / (LINES_PER_AUDITOR_PER_DAY * numAuditors));
     
-    // Base cost for the minimum days with requested auditors
-    const baseCost = minimumDays * numAuditors * AUDITOR_DAILY_RATE;
+    // Calculate base cost for the actual requested days
+    const baseCost = numDays * numAuditors * AUDITOR_DAILY_RATE;
     
     // Apply complexity multiplier
     const complexityMultiplier = complexityMultipliers[complexity] || 1;
     const costWithComplexity = baseCost * complexityMultiplier;
     
-    // If they request fewer days than minimum, they pay more but with a gentler curve
-    const rushMultiplier = numDays < minimumDays ? Math.sqrt(minimumDays / numDays) : 1;
-    const totalCost = costWithComplexity * rushMultiplier;
+    // Apply time adjustment multiplier
+    let timeAdjustMultiplier = 1;
+    if (numDays < recommendedDays) {
+        // Rush fee: sqrt of the ratio (less aggressive)
+        timeAdjustMultiplier = Math.sqrt(recommendedDays / numDays);
+    } else if (numDays > recommendedDays) {
+        // Longer duration fee: 10% extra per additional day
+        const extraDays = numDays - recommendedDays;
+        timeAdjustMultiplier = 1 + (extraDays * 0.1);
+    }
+    
+    const totalCost = costWithComplexity * timeAdjustMultiplier;
     
     return {
         basePrice: Math.round(baseCost),
         teamCost: 0,
         overhead: 0,
-        total: Math.round(totalCost)
+        total: Math.round(totalCost),
+        recommendedDays: recommendedDays
     };
 }
 
@@ -1901,8 +1911,31 @@ function updatePrice() {
         document.getElementById('complexityFactor').textContent = `${price.complexityMultiplier}x`;
         document.getElementById('teamCost').textContent = `$${price.teamCost.toLocaleString()}`;
         document.getElementById('overhead').textContent = `$${price.overhead.toLocaleString()}`;
+        document.getElementById('recommendedDays').textContent = price.recommendedDays;
     }
 }
+
+// Function to update recommended days
+function updateRecommendedDays() {
+    const linesOfCode = parseInt(document.getElementById('calcLines').value) || 0;
+    const numAuditors = parseInt(document.getElementById('calcAuditors').value) || 1;
+    const daysInput = document.getElementById('calcDays');
+    
+    if (linesOfCode > 0) {
+        const recommendedDays = Math.ceil(linesOfCode / (100 * numAuditors));
+        // Update the max value of the days slider to be double the recommended days
+        daysInput.max = Math.max(14, Math.ceil(recommendedDays * 2));
+        // Set the current value to the recommended days
+        daysInput.value = recommendedDays;
+        // Update the display
+        document.getElementById('daysValue').textContent = recommendedDays;
+        document.getElementById('recommendedDays').textContent = recommendedDays;
+    }
+}
+
+// Add event listeners for lines of code and auditors to update recommended days
+document.getElementById('calcLines').addEventListener('input', updateRecommendedDays);
+document.getElementById('calcAuditors').addEventListener('input', updateRecommendedDays);
 
 // Add event listeners
 document.addEventListener('DOMContentLoaded', () => {
