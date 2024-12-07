@@ -1798,18 +1798,15 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
     // Base cost for the minimum days with requested auditors
     const baseCost = minimumDays * numAuditors * AUDITOR_DAILY_RATE;
     
-    // If they request fewer days than minimum, they pay more proportionally
-    const rushMultiplier = numDays < minimumDays ? minimumDays / numDays : 1;
+    // If they request fewer days than minimum, they pay more but with a gentler curve
+    const rushMultiplier = numDays < minimumDays ? Math.sqrt(minimumDays / numDays) : 1;
     const totalCost = baseCost * rushMultiplier;
-    
-    // Add 10% overhead
-    const overhead = totalCost * 0.1;
     
     return {
         basePrice: Math.round(baseCost),
-        teamCost: 0, // Not used in new calculation
-        overhead: Math.round(overhead),
-        total: Math.round(totalCost + overhead)
+        teamCost: 0,
+        overhead: 0,
+        total: Math.round(totalCost)
     };
 }
 
