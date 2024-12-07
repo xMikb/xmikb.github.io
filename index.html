@@ -1867,21 +1867,19 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
     const recommendedDays = Math.ceil(linesOfCode / (LINES_PER_AUDITOR_PER_DAY * numAuditors));
     
     // Base cost is always days * number of auditors * daily rate
-    const baseCost = numDays * numAuditors * AUDITOR_DAILY_RATE;
+    const baseCost = recommendedDays * numAuditors * AUDITOR_DAILY_RATE;
     
     // Apply complexity multiplier
     const complexityMultiplier = complexityMultipliers[complexity] || 1;
     const costWithComplexity = baseCost * complexityMultiplier;
     
-    // Apply time adjustment multiplier only if they want it faster than recommended
+    // Apply time adjustment multiplier based on deviation from recommended days
     let timeAdjustMultiplier = 1;
-    if (numDays < recommendedDays) {
-        // Rush fee: sqrt of the ratio (less aggressive)
-        timeAdjustMultiplier = Math.sqrt(recommendedDays / numDays);
-    } else if (numDays > recommendedDays) {
-        // Longer duration fee: 10% extra per additional day
-        const extraDays = numDays - recommendedDays;
-        timeAdjustMultiplier = 1 + (extraDays * 0.1);
+    if (numDays !== recommendedDays) {
+        // Calculate how much they deviate from recommended (in either direction)
+        const deviation = Math.abs(numDays - recommendedDays) / recommendedDays;
+        // More aggressive multiplier: 1 + deviation
+        timeAdjustMultiplier = 1 + deviation;
     }
     
     const totalCost = costWithComplexity * timeAdjustMultiplier;
