@@ -1866,14 +1866,14 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
     // Calculate the recommended days based on lines of code and number of auditors
     const recommendedDays = Math.ceil(linesOfCode / (LINES_PER_AUDITOR_PER_DAY * numAuditors));
     
-    // Calculate base cost for the actual requested days
+    // Base cost is always days * number of auditors * daily rate
     const baseCost = numDays * numAuditors * AUDITOR_DAILY_RATE;
     
     // Apply complexity multiplier
     const complexityMultiplier = complexityMultipliers[complexity] || 1;
     const costWithComplexity = baseCost * complexityMultiplier;
     
-    // Apply time adjustment multiplier
+    // Apply time adjustment multiplier only if they want it faster than recommended
     let timeAdjustMultiplier = 1;
     if (numDays < recommendedDays) {
         // Rush fee: sqrt of the ratio (less aggressive)
@@ -1890,8 +1890,7 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
         basePrice: Math.round(baseCost),
         teamCost: 0,
         overhead: 0,
-        total: Math.round(totalCost),
-        recommendedDays: recommendedDays
+        total: Math.round(totalCost)
     };
 }
 
@@ -1911,7 +1910,6 @@ function updatePrice() {
         document.getElementById('complexityFactor').textContent = `${price.complexityMultiplier}x`;
         document.getElementById('teamCost').textContent = `$${price.teamCost.toLocaleString()}`;
         document.getElementById('overhead').textContent = `$${price.overhead.toLocaleString()}`;
-        document.getElementById('recommendedDays').textContent = price.recommendedDays;
     }
 }
 
