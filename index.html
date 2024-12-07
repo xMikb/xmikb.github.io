@@ -616,7 +616,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, #0a0a0f 100%);}
+    background: radial-gradient(circle at center 30%, rgba(255, 255, 255, 0.05) 0%, #0a0a0f 100%);
+}
 
 .hero-content {
     position: relative;
@@ -626,7 +627,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: -25vh;
+    margin-top: -15vh;
 }
 
 .hero-logo {
@@ -1791,19 +1792,14 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
     const LINES_PER_DAY = 100;
     const AUDITOR_DAILY_RATE = 500;
 
-    // Calculate the minimum days needed based on lines of code
+    // Calculate the minimum days needed based on lines of code (regardless of number of auditors)
     const minimumDays = Math.ceil(linesOfCode / LINES_PER_DAY);
     
-    // If requested days is less than minimum days, apply rush fee
+    // Base cost for the minimum days with requested auditors
+    const baseCost = minimumDays * numAuditors * AUDITOR_DAILY_RATE;
+    
+    // If they request fewer days than minimum, they pay more proportionally
     const rushMultiplier = numDays < minimumDays ? minimumDays / numDays : 1;
-    
-    // Calculate actual days (can't be less than minimum required)
-    const actualDays = Math.max(minimumDays, numDays);
-    
-    // Calculate base cost (days * number of auditors * daily rate)
-    const baseCost = actualDays * numAuditors * AUDITOR_DAILY_RATE;
-    
-    // Apply rush multiplier if needed
     const totalCost = baseCost * rushMultiplier;
     
     // Add 10% overhead
