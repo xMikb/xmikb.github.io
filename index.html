@@ -626,7 +626,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: -15vh;
+    margin-top: -25vh;
 }
 
 .hero-logo {
@@ -1787,44 +1787,33 @@ document.addEventListener('DOMContentLoaded', () => {
 <script>
 // Pricing Calculator
 function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, numDays) {
-    // Base rates per language ($ per line of code)
-    const languageRates = {
-        'solidity': 0.85,
-        'cairo': 1.2,
-        'rust': 1,
-        'vyper': 0.95
-    };
+    // Constants
+    const LINES_PER_DAY = 100;
+    const AUDITOR_DAILY_RATE = 500;
 
-    // Complexity multipliers3
-    const complexityMultipliers = {
-        'low': 1,
-        'medium': 1.5,
-        'high': 2
-    };
-
-    // Calculate base price based on language and lines of code
-    const baseRate = languageRates[language] || 0.25;
-    const basePricePerLine = baseRate * linesOfCode;
-
-    // Apply complexity multiplier
-    const complexityMultiplier = complexityMultipliers[complexity] || 1;
-    const priceWithComplexity = basePricePerLine * complexityMultiplier;
-
-    // Auditor and time factors
-    const auditorDayRate = 500;
-    const teamCost = auditorDayRate * numAuditors * numDays;
-
-    // Calculate components
-    const basePrice = basePricePerLine;
-    const overhead = (priceWithComplexity + teamCost) * 0.1;
-    const totalPrice = priceWithComplexity + teamCost + overhead;
-
+    // Calculate the minimum days needed based on lines of code
+    const minimumDays = Math.ceil(linesOfCode / LINES_PER_DAY);
+    
+    // If requested days is less than minimum days, apply rush fee
+    const rushMultiplier = numDays < minimumDays ? minimumDays / numDays : 1;
+    
+    // Calculate actual days (can't be less than minimum required)
+    const actualDays = Math.max(minimumDays, numDays);
+    
+    // Calculate base cost (days * number of auditors * daily rate)
+    const baseCost = actualDays * numAuditors * AUDITOR_DAILY_RATE;
+    
+    // Apply rush multiplier if needed
+    const totalCost = baseCost * rushMultiplier;
+    
+    // Add 10% overhead
+    const overhead = totalCost * 0.1;
+    
     return {
-        basePrice: Math.round(basePrice),
-        complexityMultiplier: complexityMultiplier,
-        teamCost: Math.round(teamCost),
+        basePrice: Math.round(baseCost),
+        teamCost: 0, // Not used in new calculation
         overhead: Math.round(overhead),
-        total: Math.round(totalPrice)
+        total: Math.round(totalCost + overhead)
     };
 }
 
