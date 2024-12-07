@@ -1792,15 +1792,26 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
     const LINES_PER_DAY = 100;
     const AUDITOR_DAILY_RATE = 500;
 
+    // Complexity multipliers
+    const complexityMultipliers = {
+        'low': 0.9,
+        'medium': 1,
+        'high': 1.1
+    };
+
     // Calculate the minimum days needed based on lines of code (regardless of number of auditors)
     const minimumDays = Math.ceil(linesOfCode / LINES_PER_DAY);
     
     // Base cost for the minimum days with requested auditors
     const baseCost = minimumDays * numAuditors * AUDITOR_DAILY_RATE;
     
+    // Apply complexity multiplier
+    const complexityMultiplier = complexityMultipliers[complexity] || 1;
+    const costWithComplexity = baseCost * complexityMultiplier;
+    
     // If they request fewer days than minimum, they pay more but with a gentler curve
     const rushMultiplier = numDays < minimumDays ? Math.sqrt(minimumDays / numDays) : 1;
-    const totalCost = baseCost * rushMultiplier;
+    const totalCost = costWithComplexity * rushMultiplier;
     
     return {
         basePrice: Math.round(baseCost),
