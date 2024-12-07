@@ -1923,13 +1923,20 @@ function updateRecommendedDays() {
     
     if (linesOfCode > 0) {
         const recommendedDays = Math.ceil(linesOfCode / (100 * numAuditors));
-        // Update the max value of the days slider to be double the recommended days
-        daysInput.max = Math.max(14, Math.ceil(recommendedDays * 2));
+        // Update the max value of the days slider if needed
+        const newMax = Math.max(14, Math.ceil(recommendedDays * 2));
+        if (daysInput.max !== newMax.toString()) {
+            daysInput.max = newMax;
+        }
         // Set the current value to the recommended days
         daysInput.value = recommendedDays;
         // Update the display
         document.getElementById('daysValue').textContent = recommendedDays;
-        document.getElementById('recommendedDays').textContent = recommendedDays;
+        // Trigger the change event to update price
+        daysInput.dispatchEvent(new Event('input'));
+        // Update the day/days text
+        const daysText = recommendedDays === 1 ? 'day' : 'days';
+        document.getElementById('daysValue').nextElementSibling.textContent = ` ${daysText}`;
     }
 }
 
