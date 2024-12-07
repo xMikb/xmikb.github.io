@@ -1884,11 +1884,13 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
         totalCost *= rushMultiplier;
     }
 
-    // Move the days slider to recommended position when lines change
+    // Move the days slider to recommended position when lines or auditors change
     const daysInput = document.getElementById('calcDays');
     const linesInput = document.getElementById('calcLines');
-    // Only move the slider if the lines input was the last changed
-    if (document.activeElement === linesInput && daysInput) {
+    const auditorsInput = document.getElementById('calcAuditors');
+    
+    // Only move the slider if the lines or auditors input was the last changed
+    if ((document.activeElement === linesInput || document.activeElement === auditorsInput) && daysInput) {
         daysInput.value = recommendedDays;
         // Update the days display
         const daysValue = document.getElementById('daysValue');
@@ -1900,6 +1902,8 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
         if (dayText) {
             dayText.textContent = recommendedDays === 1 ? 'day' : 'days';
         }
+        // Trigger input event to ensure all UI elements update
+        daysInput.dispatchEvent(new Event('input'));
     }
     
     return {
@@ -1967,6 +1971,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rangeInputs = document.querySelectorAll('input[type="range"]');
     rangeInputs.forEach(input => {
         updateRangeInput(input);
+        // If I remove this it is too late
     });
 });
 </script>
