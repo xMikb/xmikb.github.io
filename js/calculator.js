@@ -49,16 +49,25 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
     // Only move the slider if the lines or auditors input was the last changed
     if ((document.activeElement === linesInput || document.activeElement === auditorsInput) && daysInput) {
         daysInput.value = recommendedDays;
+        
         // Update the days display
         const daysValue = document.getElementById('daysValue');
         if (daysValue) {
             daysValue.textContent = recommendedDays;
         }
+        
         // Update the day/days text
         const dayText = document.querySelector('.day-text');
         if (dayText) {
             dayText.textContent = recommendedDays === 1 ? 'day' : 'days';
         }
+        
+        // Trigger input event to ensure all UI elements update
+        const event = new Event('input', {
+            bubbles: true,
+            cancelable: true,
+        });
+        daysInput.dispatchEvent(event);
     }
     
     return {
@@ -82,7 +91,6 @@ function updatePrice() {
     if (language && complexity && lines) {
         const price = calculateAuditPrice(language, complexity, lines, auditors, days);
         
-        // Update all displays
         document.getElementById('totalPrice').textContent = `$${price.total.toLocaleString()}`;
         document.getElementById('basePrice').textContent = `$${price.basePrice.toLocaleString()}`;
         document.getElementById('complexityFactor').textContent = `${price.complexityMultiplier}x`;
@@ -91,30 +99,21 @@ function updatePrice() {
     }
 }
 
-// Helper function to update days display
-function updateDaysDisplay(days) {
-    const daysValue = document.getElementById('daysValue');
-    const dayText = document.querySelector('.day-text');
-    
-    if (daysValue) {
-        daysValue.textContent = days;
-    }
-    if (dayText) {
-        dayText.textContent = days === 1 ? 'day' : 'days';
-    }
-}
-
 function updateRangeInput(input) {
     const value = input.value;
-    const daysValue = document.getElementById(`${input.id}Value`);
-    if (daysValue) {
-        daysValue.textContent = value;
-        // Update day/days text for the days input
-        if (input.id === 'calcDays') {
-            const dayText = document.querySelector('.day-text');
-            if (dayText) {
-                dayText.textContent = value === '1' ? 'day' : 'days';
-            }
+    if (input.id === 'calcDays') {
+        const daysValue = document.getElementById('daysValue');
+        const dayText = document.querySelector('.day-text');
+        if (daysValue) {
+            daysValue.textContent = value;
+        }
+        if (dayText) {
+            dayText.textContent = value === '1' ? 'day' : 'days';
+        }
+    } else {
+        const valueDisplay = document.getElementById(`${input.id}Value`);
+        if (valueDisplay) {
+            valueDisplay.textContent = value;
         }
     }
 }
@@ -145,17 +144,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputs = form.querySelectorAll('input, select');
     
     inputs.forEach(input => {
-        input.addEventListener('input', () => {
-            if (input.type === 'range') {
+        if (input.type === 'range') {
+            // For range inputs, update display and trigger price calculation
+            input.addEventListener('input', () => {
                 updateRangeInput(input);
-            }
-            // If lines or auditors changed, update price immediately
-            if (input.id === 'calcLines' || input.id === 'calcAuditors') {
                 updatePrice(); // Immediate update for better responsiveness
-            } else {
-                debouncedUpdatePrice(); // Debounce other changes
-            }
-        });
+            });
+        } else {
+            // For other inputs, update price immediately
+            input.addEventListener('input', updatePrice);
+        }
     });
 
     // Initial update for range inputs
@@ -165,5 +163,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Initial price calculation
-    debouncedUpdatePrice();
+    updatePrice();
 });
