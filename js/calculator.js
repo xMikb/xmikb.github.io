@@ -41,6 +41,26 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
         totalCost *= rushMultiplier;
     }
 
+    // Move the days slider to recommended position when lines or auditors change
+    const daysInput = document.getElementById('calcDays');
+    const linesInput = document.getElementById('calcLines');
+    const auditorsInput = document.getElementById('calcAuditors');
+    
+    // Only move the slider if the lines or auditors input was the last changed
+    if ((document.activeElement === linesInput || document.activeElement === auditorsInput) && daysInput) {
+        daysInput.value = recommendedDays;
+        // Update the days display
+        const daysValue = document.getElementById('daysValue');
+        if (daysValue) {
+            daysValue.textContent = recommendedDays;
+        }
+        // Update the day/days text
+        const dayText = document.querySelector('.day-text');
+        if (dayText) {
+            dayText.textContent = recommendedDays === 1 ? 'day' : 'days';
+        }
+    }
+    
     return {
         basePrice: Math.round(baseCost),
         recommendedDays: recommendedDays,
@@ -68,16 +88,6 @@ function updatePrice() {
         document.getElementById('complexityFactor').textContent = `${price.complexityMultiplier}x`;
         document.getElementById('teamCost').textContent = `$${price.teamCost.toLocaleString()}`;
         document.getElementById('overhead').textContent = `$${price.overhead.toLocaleString()}`;
-        
-        // Always update days when lines or auditors change
-        const activeElement = document.activeElement;
-        if (activeElement && (activeElement.id === 'calcLines' || activeElement.id === 'calcAuditors')) {
-            const daysInput = document.getElementById('calcDays');
-            if (daysInput) {
-                daysInput.value = price.recommendedDays;
-                updateDaysDisplay(price.recommendedDays);
-            }
-        }
     }
 }
 
@@ -135,21 +145,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputs = form.querySelectorAll('input, select');
     
     inputs.forEach(input => {
-        if (input.type === 'range') {
-            // For range inputs, update display immediately but debounce price calculation
-            input.addEventListener('input', () => {
+        input.addEventListener('input', () => {
+            if (input.type === 'range') {
                 updateRangeInput(input);
-                debouncedUpdatePrice();
-            });
-        } else {
-            // For other inputs, just debounce price calculation
-            input.addEventListener('input', debouncedUpdatePrice);
-        }
+            }
+            // If lines or auditors changed, update price immediately
+            if (input.id === 'calcLines' || input.id === 'calcAuditors') {
+                updatePrice(); // Immediate update for better responsiveness
+            } else {
+                debouncedUpdatePrice(); // Debounce other changes
+            }
+        });
     });
 
     // Initial update for range inputs
     const rangeInputs = document.querySelectorAll('input[type="range"]');
-    rangeInputs.forEach(updateRangeInput);
+    rangeInputs.forEach(input => {
+        updateRangeInput(input);
+    });
     
     // Initial price calculation
     debouncedUpdatePrice();
