@@ -126,33 +126,8 @@ const debouncedUpdatePrice = debounce(function() {
         document.getElementById('complexityFactor').textContent = `${price.complexityMultiplier}x`;
         document.getElementById('teamCost').textContent = `$${price.teamCost.toLocaleString()}`;
         document.getElementById('overhead').textContent = `$${price.overhead.toLocaleString()}`;
-        
-        // Update days slider if lines or auditors changed
-        const activeElement = document.activeElement;
-        if (activeElement && (activeElement.id === 'calcLines' || activeElement.id === 'calcAuditors')) {
-            updateDaysSlider(price.recommendedDays);
-        }
     }
 }, 150); // 150ms debounce
-
-function updateDaysSlider(recommendedDays) {
-    const daysInput = document.getElementById('calcDays');
-    if (!daysInput) return;
-
-    daysInput.value = recommendedDays;
-    
-    // Update the days display
-    const daysValue = document.getElementById('daysValue');
-    if (daysValue) {
-        daysValue.textContent = recommendedDays;
-    }
-    
-    // Update the day/days text
-    const dayText = document.querySelector('.day-text');
-    if (dayText) {
-        dayText.textContent = recommendedDays === 1 ? 'day' : 'days';
-    }
-}
 
 // Initialize all event listeners when the document loads
 document.addEventListener('DOMContentLoaded', () => {
@@ -160,28 +135,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputs = form.querySelectorAll('input, select');
     
     inputs.forEach(input => {
-        // Use 'change' event for range inputs to catch all changes
         if (input.type === 'range') {
+            // For range inputs, update display immediately but debounce price calculation
             input.addEventListener('input', () => {
                 updateRangeInput(input);
-                updatePrice();
-            });
-            input.addEventListener('change', () => {
-                updateRangeInput(input);
-                updatePrice();
+                debouncedUpdatePrice();
             });
         } else {
-            input.addEventListener('input', updatePrice);
-            input.addEventListener('change', updatePrice);
+            // For other inputs, just debounce price calculation
+            input.addEventListener('input', debouncedUpdatePrice);
         }
     });
 
     // Initial update for range inputs
     const rangeInputs = document.querySelectorAll('input[type="range"]');
-    rangeInputs.forEach(input => {
-        updateRangeInput(input);
-    });
+    rangeInputs.forEach(updateRangeInput);
     
     // Initial price calculation
-    updatePrice();
+    debouncedUpdatePrice();
 });
