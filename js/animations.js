@@ -18,6 +18,8 @@ const observer = new IntersectionObserver((entries, observer) => {
 function initializeAnimations() {
     // Add fade-in animation to sections
     document.querySelectorAll('.section').forEach(section => {
+        if (section.classList.contains('fade-in-element')) return; // Skip if already initialized
+        section.style.opacity = '1'; // Make visible immediately
         section.classList.add('fade-in-element');
         observer.observe(section);
     });
