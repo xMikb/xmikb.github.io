@@ -21,6 +21,8 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: -0.015em;
+    margin: 0;
+    padding: 0;
 }
 
 /* Animations */
@@ -33,6 +35,7 @@ body {
 .fade-in-element {
     opacity: 1;
     transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 /* Card Styles */
@@ -121,8 +124,8 @@ body {
     padding: 1rem 2rem;
     border-radius: 0.5rem;
     color: var(--text-white);
-    opacity: 0;
-    transform: translateY(1rem);
+    opacity: 1;
+    transform: translateY(0);
     transition: opacity 0.3s ease, transform 0.3s ease;
     z-index: 1000;
 }
@@ -133,11 +136,6 @@ body {
 
 .notification.error {
     background-color: var(--bug);
-}
-
-.notification.show {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 /* Loading Animation */
@@ -153,6 +151,7 @@ body {
     align-items: center;
     z-index: 9999;
     transition: opacity 0.5s ease;
+    opacity: 0;
 }
 
 .loading.fade-out {
@@ -224,9 +223,13 @@ body {
 
 /* Sections */
 .section {
+    opacity: 1 !important;
+    visibility: visible !important;
     padding: 4rem 0;
     background-color: var(--bg-antra);
-    overflow: hidden; /* Prevent horizontal scroll */
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 .section:has(.logo-carousel) {
@@ -4884,3 +4887,1510 @@ input[type="range"]:focus {
     margin: 0 !important;
     padding-top: 0 !important;
 }
+
+/* Style the form container */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.range-value-display {
+    text-align: center;
+    color: var(--primary);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    background: rgba(147, 51, 234, 0.1);
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid rgba(147, 51, 234, 0.2);
+}
+
+.hall-of-fame-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+}
+
+.protocol-card {
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.protocol-card:hover {
+    transform: translateY(-5px);
+}
+
+.protocol-logo {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .hall-of-fame-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .protocol-logo {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hall-of-fame-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Restructure contact section to place social links next to the form */
+.contact-wrapper {
+    display: flex;
+    gap: 3rem; /* Increased gap between form and socials */
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+    max-width: 900px; /* Added max-width to center content */
+    margin: 0 auto; /* Center the wrapper */
+}
+
+.social-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;  /* Increased from 1.5rem to 2.5rem */
+    margin-top: 2rem;
+}
+
+.social a {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: #0a0a0f;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.social a:hover {
+    color: var(--primary);
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    border-color: var(--primary);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
+}
+
+.social a:active {
+    transform: translateY(0);
+}
+
+/* Add subtle animations for icons */
+.social a i {
+    transition: transform 0.3s ease;
+}
+
+.social a:hover i {
+    transform: scale(1.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .social {
+        gap: 1rem;
+    }
+
+    .social a {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.25rem;
+    }
+}
+
+.contact-form-container {
+    flex: 1;
+    max-width: 600px;
+    margin: 0;
+}
+
+/* Social links adjustments */
+.social {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem; /* Increased gap between social icons */
+    margin: 0; /* Remove default margin */
+    padding-top: 1rem; /* Add some top padding to align with form */
+}
+
+.social a {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: var(--bg-card);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-white);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social a:hover {
+    transform: translateX(-5px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--primary);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .contact-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .social {
+        flex-direction: row;
+        gap: 2rem;
+        padding-top: 0;
+    }
+
+    .social a {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.25rem;
+    }
+
+    .social a:hover {
+        transform: translateY(-5px);
+    }
+}
+
+/* Calculator Section Styles */
+.calculator-section {
+    padding: 4rem 0;
+    background: var(--bg-section);
+}
+
+.calculator-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+}
+
+.calculator-form {
+    flex: 1;
+    max-width: 500px;
+}
+
+.calculator-result {
+    flex: 1;
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.price-display {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.price-breakdown {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.range-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0.25rem;
+}
+
+@media (max-width: 768px) {
+    .calculator-wrapper {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .calculator-form, .calculator-result {
+        max-width: 100%;
+    }
+}
+
+.info-card {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+}
+
+.info-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--text-white);
+}
+
+.info-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.info-item i {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-top: 0.2rem;
+}
+
+.info-item strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-white);
+}
+
+.info-item p, .info-item ul {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.info-item ul {
+    padding-left: 1.2rem;
+    list-style-type: none;
+}
+
+.info-item ul li {
+    margin-bottom: 0.3rem;
+    position: relative;
+}
+
+.info-item ul li:before {
+    content: "•";
+    color: var(--primary);
+    position: absolute;
+    left: -1rem;
+}
+
+@media (max-width: 768px) {
+    .info-item {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .info-item i {
+        font-size: 1.2rem;
+    }
+}
+
+.range-container {
+    margin-bottom: 1.5rem;
+}
+
+/* Label styling */
+.range-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-gray);
+}
+
+/* Range input styling */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 48px;
+    padding: 0 1rem;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin: 0;
+}
+
+/* Range input track */
+input[type="range"]::-webkit-slider-runnable-track {
+    background: var(--bg-card) !important;
+}
+
+input[type="range"]::-moz-range-track {
+    width: calc(100% - 2rem);
+    height: 4px;
+    background: var(--bg-card);
+    border-radius: 2px;
+    border: none;
+}
+
+/* Range input thumb */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: var(--primary);
+    margin-top: -6px;
+    border: none;
+    box-shadow: 0 0 10px rgba(147, 51, 234, 0.3);
+    transition: all 0.3s ease;
+}
+
+input[type="range"]::-moz-range-thumb {
+    background: var(--bg-card) !important;
+}
+
+/* Range input hover and focus states */
+input[type="range"]:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+input[type="range"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(147, 51, 234, 0.2);
+}
+
+/* Range values display */
+.range-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    padding: 0 1rem; /* Match input padding */
+    width: 100%;
+}
+
+.range-info span {
+    font-size: 0.875rem;
+    color: var(--text-gray);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.range-info span::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 4px;
+    background: var(--text-gray);
+}
+
+.range-info span.active {
+    color: var(--primary);
+}
+
+.range-info span.active::before {
+    background: var(--primary);
+}
+
+/* Center socials vertically */
+.contact-wrapper {
+    align-items: center !important;
+}
+
+.social {
+    margin: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Style the form container */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.range-value-display {
+    text-align: center;
+    color: var(--primary);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    background: rgba(147, 51, 234, 0.1);
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid rgba(147, 51, 234, 0.2);
+}
+
+.hall-of-fame-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+}
+
+.protocol-card {
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.protocol-card:hover {
+    transform: translateY(-5px);
+}
+
+.protocol-logo {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .hall-of-fame-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .protocol-logo {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hall-of-fame-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Restructure contact section to place social links next to the form */
+.contact-wrapper {
+    display: flex;
+    gap: 3rem; /* Increased gap between form and socials */
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+    max-width: 900px; /* Added max-width to center content */
+    margin: 0 auto; /* Center the wrapper */
+}
+
+.social-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;  /* Increased from 1.5rem to 2.5rem */
+    margin-top: 2rem;
+}
+
+.social a {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: #0a0a0f;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.social a:hover {
+    color: var(--primary);
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    border-color: var(--primary);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
+}
+
+.social a:active {
+    transform: translateY(0);
+}
+
+/* Add subtle animations for icons */
+.social a i {
+    transition: transform 0.3s ease;
+}
+
+.social a:hover i {
+    transform: scale(1.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .social {
+        gap: 1rem;
+    }
+
+    .social a {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.25rem;
+    }
+}
+
+.contact-form-container {
+    flex: 1;
+    max-width: 600px;
+    margin: 0;
+}
+
+/* Social links adjustments */
+.social {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem; /* Increased gap between social icons */
+    margin: 0; /* Remove default margin */
+    padding-top: 1rem; /* Add some top padding to align with form */
+}
+
+.social a {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: var(--bg-card);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-white);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social a:hover {
+    transform: translateX(-5px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--primary);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .contact-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .social {
+        flex-direction: row;
+        gap: 2rem;
+        padding-top: 0;
+    }
+
+    .social a {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.25rem;
+    }
+
+    .social a:hover {
+        transform: translateY(-5px);
+    }
+}
+
+/* Calculator Section Styles */
+.calculator-section {
+    padding: 4rem 0;
+    background: var(--bg-section);
+}
+
+.calculator-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+}
+
+.calculator-form {
+    flex: 1;
+    max-width: 500px;
+}
+
+.calculator-result {
+    flex: 1;
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.price-display {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.price-breakdown {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.range-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0.25rem;
+}
+
+@media (max-width: 768px) {
+    .calculator-wrapper {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .calculator-form, .calculator-result {
+        max-width: 100%;
+    }
+}
+
+.info-card {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+}
+
+.info-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--text-white);
+}
+
+.info-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.info-item i {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-top: 0.2rem;
+}
+
+.info-item strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-white);
+}
+
+.info-item p, .info-item ul {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.info-item ul {
+    padding-left: 1.2rem;
+    list-style-type: none;
+}
+
+.info-item ul li {
+    margin-bottom: 0.3rem;
+    position: relative;
+}
+
+.info-item ul li:before {
+    content: "•";
+    color: var(--primary);
+    position: absolute;
+    left: -1rem;
+}
+
+@media (max-width: 768px) {
+    .info-item {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .info-item i {
+        font-size: 1.2rem;
+    }
+}
+
+.range-container {
+    margin-bottom: 1.5rem;
+}
+
+/* Label styling */
+.range-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-gray);
+}
+
+/* Range input styling */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 48px;
+    padding: 0 1rem;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin: 0;
+}
+
+/* Range input track */
+input[type="range"]::-webkit-slider-runnable-track {
+    background: var(--bg-card) !important;
+}
+
+input[type="range"]::-moz-range-track {
+    width: calc(100% - 2rem);
+    height: 4px;
+    background: var(--bg-card);
+    border-radius: 2px;
+    border: none;
+}
+
+/* Range input thumb */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: var(--primary);
+    margin-top: -6px;
+    border: none;
+    box-shadow: 0 0 10px rgba(147, 51, 234, 0.3);
+    transition: all 0.3s ease;
+}
+
+input[type="range"]::-moz-range-thumb {
+    background: var(--bg-card) !important;
+}
+
+/* Range input hover and focus states */
+input[type="range"]:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+input[type="range"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(147, 51, 234, 0.2);
+}
+
+/* Range values display */
+.range-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    padding: 0 1rem; /* Match input padding */
+    width: 100%;
+}
+
+.range-info span {
+    font-size: 0.875rem;
+    color: var(--text-gray);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.range-info span::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 4px;
+    background: var(--text-gray);
+}
+
+.range-info span.active {
+    color: var(--primary);
+}
+
+.range-info span.active::before {
+    background: var(--primary);
+}
+
+/* Center socials vertically */
+.contact-wrapper {
+    align-items: center !important;
+}
+
+.social {
+    margin: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Style the form container */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.range-value-display {
+    text-align: center;
+    color: var(--primary);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    background: rgba(147, 51, 234, 0.1);
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid rgba(147, 51, 234, 0.2);
+}
+
+.hall-of-fame-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+}
+
+.protocol-card {
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.protocol-card:hover {
+    transform: translateY(-5px);
+}
+
+.protocol-logo {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .hall-of-fame-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .protocol-logo {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hall-of-fame-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Restructure contact section to place social links next to the form */
+.contact-wrapper {
+    display: flex;
+    gap: 3rem; /* Increased gap between form and socials */
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+    max-width: 900px; /* Added max-width to center content */
+    margin: 0 auto; /* Center the wrapper */
+}
+
+.social-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;  /* Increased from 1.5rem to 2.5rem */
+    margin-top: 2rem;
+}
+
+.social a {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: #0a0a0f;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.social a:hover {
+    color: var(--primary);
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    border-color: var(--primary);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
+}
+
+.social a:active {
+    transform: translateY(0);
+}
+
+/* Add subtle animations for icons */
+.social a i {
+    transition: transform 0.3s ease;
+}
+
+.social a:hover i {
+    transform: scale(1.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .social {
+        gap: 1rem;
+    }
+
+    .social a {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.25rem;
+    }
+}
+
+.contact-form-container {
+    flex: 1;
+    max-width: 600px;
+    margin: 0;
+}
+
+/* Social links adjustments */
+.social {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem; /* Increased gap between social icons */
+    margin: 0; /* Remove default margin */
+    padding-top: 1rem; /* Add some top padding to align with form */
+}
+
+.social a {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: var(--bg-card);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-white);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social a:hover {
+    transform: translateX(-5px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--primary);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .contact-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .social {
+        flex-direction: row;
+        gap: 2rem;
+        padding-top: 0;
+    }
+
+    .social a {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.25rem;
+    }
+
+    .social a:hover {
+        transform: translateY(-5px);
+    }
+}
+
+/* Calculator Section Styles */
+.calculator-section {
+    padding: 4rem 0;
+    background: var(--bg-section);
+}
+
+.calculator-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+}
+
+.calculator-form {
+    flex: 1;
+    max-width: 500px;
+}
+
+.calculator-result {
+    flex: 1;
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.price-display {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.price-breakdown {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.range-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0.25rem;
+}
+
+@media (max-width: 768px) {
+    .calculator-wrapper {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .calculator-form, .calculator-result {
+        max-width: 100%;
+    }
+}
+
+.info-card {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+}
+
+.info-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--text-white);
+}
+
+.info-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.info-item i {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-top: 0.2rem;
+}
+
+.info-item strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-white);
+}
+
+.info-item p, .info-item ul {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.info-item ul {
+    padding-left: 1.2rem;
+    list-style-type: none;
+}
+
+.info-item ul li {
+    margin-bottom: 0.3rem;
+    position: relative;
+}
+
+.info-item ul li:before {
+    content: "•";
+    color: var(--primary);
+    position: absolute;
+    left: -1rem;
+}
+
+@media (max-width: 768px) {
+    .info-item {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .info-item i {
+        font-size: 1.2rem;
+    }
+}
+
+.range-container {
+    margin-bottom: 1.5rem;
+}
+
+/* Label styling */
+.range-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-gray);
+}
+
+/* Range input styling */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 48px;
+    padding: 0 1rem;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin: 0;
+}
+
+/* Range input track */
+input[type="range"]::-webkit-slider-runnable-track {
+    background: var(--bg-card) !important;
+}
+
+input[type="range"]::-moz-range-track {
+    width: calc(100% - 2rem);
+    height: 4px;
+    background: var(--bg-card);
+    border-radius: 2px;
+    border: none;
+}
+
+/* Range input thumb */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: var(--primary);
+    margin-top: -6px;
+    border: none;
+    box-shadow: 0 0 10px rgba(147, 51, 234, 0.3);
+    transition: all 0.3s ease;
+}
+
+input[type="range"]::-moz-range-thumb {
+    background: var(--bg-card) !important;
+}
+
+/* Range input hover and focus states */
+input[type="range"]:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+input[type="range"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(147, 51, 234, 0.2);
+}
+
+/* Range values display */
+.range-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    padding: 0 1rem; /* Match input padding */
+    width: 100%;
+}
+
+.range-info span {
+    font-size: 0.875rem;
+    color: var(--text-gray);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.range-info span::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 4px;
+    background: var(--text-gray);
+}
+
+.range-info span.active {
+    color: var(--primary);
+}
+
+.range-info span.active::before {
+    background: var(--primary);
+}
+
+/* Center socials vertically */
+.contact-wrapper {
+    align-items: center !important;
+}
+
+.social {
+    margin: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Style the form container */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.range-value-display {
+    text-align: center;
+    color: var(--primary);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    background: rgba(147, 51, 234, 0.1);
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid rgba(147, 51, 234, 0.2);
+}
+
+.hall-of-fame-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+}
+
+.protocol-card {
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.protocol-card:hover {
+    transform: translateY(-5px);
+}
+
+.protocol-logo {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .hall-of-fame-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .protocol-logo {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hall-of-fame-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Restructure contact section to place social links next to the form */
+.contact-wrapper {
+    display: flex;
+    gap: 3rem; /* Increased gap between form and socials */
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+    max-width: 900px; /* Added max-width to center content */
+    margin: 0 auto; /* Center the wrapper */
+}
+
+.social-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;  /* Increased from 1.5rem to 2.5rem */
+    margin-top: 2rem;
+}
+
+.social a {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: #0a0a0f;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.social a:hover {
+    color: var(--primary);
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    border-color: var(--primary);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
+}
+
+.social a:active {
+    transform: translateY(0);
+}
+
+/* Add subtle animations for icons */
+.social a i {
+    transition: transform 0.3s ease;
+}
+
+.social a:hover i {
+    transform: scale(1.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .social {
+        gap: 1rem;
+    }
+
+    .social a {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.25rem;
+    }
+}
+
+.contact-form-container {
+    flex: 1;
+    max-width: 600px;
+    margin: 0;
+}
+
+/* Social links adjustments */
+.social {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem; /* Increased gap between social icons */
+    margin: 0; /* Remove default margin */
+    padding-top: 1rem; /* Add some top padding to align with form */
+}
+
+.social a {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: var(--bg-card);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-white);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social a:hover {
+    transform: translateX(-5px);
+    background: rgba(255, 255, 255, 0.05);
