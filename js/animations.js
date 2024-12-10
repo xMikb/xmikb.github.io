@@ -96,6 +96,10 @@ function initializeSmoothScroll() {
 document.addEventListener('DOMContentLoaded', () => {
     initializeAnimations();
     initializeSmoothScroll();
+    const track = document.querySelector('.carousel-track');
+    const slides = track.getElementsByClassName('carousel-slide');
+    const originalSlideCount = slides.length / 2; // This accounts for your duplicates
+
 });
 
 window.addEventListener('load', initializeLoadingAnimation);
