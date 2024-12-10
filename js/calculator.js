@@ -41,28 +41,6 @@ function calculateAuditPrice(language, complexity, linesOfCode, numAuditors, num
         totalCost *= rushMultiplier;
     }
 
-    // Move the days slider to recommended position when lines or auditors change
-    const daysInput = document.getElementById('calcDays');
-    const linesInput = document.getElementById('calcLines');
-    const auditorsInput = document.getElementById('calcAuditors');
-    
-    // Only move the slider if the lines or auditors input was the last changed
-    if ((document.activeElement === linesInput || document.activeElement === auditorsInput) && daysInput) {
-        daysInput.value = recommendedDays;
-        // Update the days display
-        const daysValue = document.getElementById('daysValue');
-        if (daysValue) {
-            daysValue.textContent = recommendedDays;
-        }
-        // Update the day/days text
-        const dayText = document.querySelector('.day-text');
-        if (dayText) {
-            dayText.textContent = recommendedDays === 1 ? 'day' : 'days';
-        }
-        // Trigger input event to ensure all UI elements update
-        daysInput.dispatchEvent(new Event('input'));
-    }
-    
     return {
         basePrice: Math.round(baseCost),
         recommendedDays: recommendedDays,
@@ -84,11 +62,35 @@ function updatePrice() {
     if (language && complexity && lines) {
         const price = calculateAuditPrice(language, complexity, lines, auditors, days);
         
+        // Update all displays
         document.getElementById('totalPrice').textContent = `$${price.total.toLocaleString()}`;
         document.getElementById('basePrice').textContent = `$${price.basePrice.toLocaleString()}`;
         document.getElementById('complexityFactor').textContent = `${price.complexityMultiplier}x`;
         document.getElementById('teamCost').textContent = `$${price.teamCost.toLocaleString()}`;
         document.getElementById('overhead').textContent = `$${price.overhead.toLocaleString()}`;
+        
+        // Always update days when lines or auditors change
+        const activeElement = document.activeElement;
+        if (activeElement && (activeElement.id === 'calcLines' || activeElement.id === 'calcAuditors')) {
+            const daysInput = document.getElementById('calcDays');
+            if (daysInput) {
+                daysInput.value = price.recommendedDays;
+                updateDaysDisplay(price.recommendedDays);
+            }
+        }
+    }
+}
+
+// Helper function to update days display
+function updateDaysDisplay(days) {
+    const daysValue = document.getElementById('daysValue');
+    const dayText = document.querySelector('.day-text');
+    
+    if (daysValue) {
+        daysValue.textContent = days;
+    }
+    if (dayText) {
+        dayText.textContent = days === 1 ? 'day' : 'days';
     }
 }
 
@@ -106,7 +108,6 @@ function updateRangeInput(input) {
         }
     }
 }
-
 
 // Debounced version of updatePrice
 const debouncedUpdatePrice = debounce(function() {
@@ -153,42 +154,34 @@ function updateDaysSlider(recommendedDays) {
     }
 }
 
-function updateRangeInput(input) {
-    const value = input.value;
-    const daysValue = document.getElementById(`${input.id}Value`);
-    if (daysValue) {
-        daysValue.textContent = value;
-        // Update day/days text for the days input
-        if (input.id === 'calcDays') {
-            const dayText = document.querySelector('.day-text');
-            if (dayText) {
-                dayText.textContent = value === '1' ? 'day' : 'days';
-            }
-        }
-    }
-}
-
 // Initialize all event listeners when the document loads
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('auditCalculator');
     const inputs = form.querySelectorAll('input, select');
     
     inputs.forEach(input => {
-        input.addEventListener('input', () => {
-            if (input.type === 'range') {
+        // Use 'change' event for range inputs to catch all changes
+        if (input.type === 'range') {
+            input.addEventListener('input', () => {
                 updateRangeInput(input);
-            }
-            debouncedUpdatePrice();
-        });
+                updatePrice();
+            });
+            input.addEventListener('change', () => {
+                updateRangeInput(input);
+                updatePrice();
+            });
+        } else {
+            input.addEventListener('input', updatePrice);
+            input.addEventListener('change', updatePrice);
+        }
     });
 
     // Initial update for range inputs
     const rangeInputs = document.querySelectorAll('input[type="range"]');
     rangeInputs.forEach(input => {
         updateRangeInput(input);
-        // If I remove this, this is too late
     });
     
     // Initial price calculation
-    debouncedUpdatePrice();
+    updatePrice();
 });
