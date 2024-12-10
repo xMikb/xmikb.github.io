@@ -405,14 +405,25 @@
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <!-- * *                               SB Forms JS                               * *-->
-    <!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
-    <script src="js/calculator.js"></script>
-    <script src="js/animations.js"></script>
-    <script src="js/form-handler.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="js/form-handler.js"></script>
+
+    <!-- Initialize all components when DOM is loaded -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize dynamic year
+            utils.updateCopyright();
+            
+            // Initialize animations
+            initializeAnimations();
+            initializeSmoothScroll();
+            
+            // Initialize loading animation
+            window.addEventListener('load', initializeLoadingAnimation);
+        });
+    </script>
 </body>
 
 </html>
