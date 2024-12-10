@@ -1,9 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const track = document.querySelector('.carousel-track');
-    const slides = track.getElementsByClassName('carousel-slide');
-    const originalSlideCount = slides.length / 2; // This accounts for your duplicates
-});                          
-
 // Pricing Calculator
 function debounce(func, wait) {
     let timeout;
@@ -100,16 +94,19 @@ function updatePrice() {
 
 function updateRangeInput(input) {
     const value = input.value;
-    const daysValue = document.getElementById('daysValue');
+    const daysValue = document.getElementById(`${input.id}Value`);
     if (daysValue) {
         daysValue.textContent = value;
-        // Update day/days text
-        const dayText = document.querySelector('.day-text');
-        if (dayText) {
-            dayText.textContent = value === '1' ? 'day' : 'days';
+        // Update day/days text for the days input
+        if (input.id === 'calcDays') {
+            const dayText = document.querySelector('.day-text');
+            if (dayText) {
+                dayText.textContent = value === '1' ? 'day' : 'days';
+            }
         }
     }
 }
+
 
 // Debounced version of updatePrice
 const debouncedUpdatePrice = debounce(function() {
