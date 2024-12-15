@@ -17,8 +17,8 @@
 }
 
 body {
-    background-color: var(--bg-antra);
-    color: var(--text-white);
+    background-color: #0a0a0a; /* Dark background */
+    color: #00ffcc; /* Neon green text */
     line-height: 1.6;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -1429,4 +1429,56 @@ input[type="range"]:focus {
     .hall-of-fame-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Cybersigilism Style Additions */
+
+/* Background and Text Colors */
+body {
+    background-color: #0a0a0a; /* Dark background */
+    color: #00ffcc; /* Neon green text */
+}
+
+/* Headings with Neon Effect */
+h1, h2, h3, h4, h5, h6 {
+    color: #ff00ff; /* Neon pink */
+    text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff;
+}
+
+/* Links with Glow Effect */
+a {
+    color: #00ccff;
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 5px #00ccff, 0 0 10px #00ccff;
+}
+
+/* Glitch Effect for Divs */
+.glitch {
+    position: relative;
+    color: #00ffcc;
+    font-size: 2em;
+    animation: glitch 1s infinite;
+}
+
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+/* Geometric Patterns */
+.pattern {
+    background-image: linear-gradient(45deg, #333 25%, transparent 25%),
+                      linear-gradient(-45deg, #333 25%, transparent 25%),
+                      linear-gradient(45deg, transparent 75%, #333 75%),
+                      linear-gradient(-45deg, transparent 75%, #333 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 }
